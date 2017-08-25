@@ -18,5 +18,8 @@
     "dist",
     "cordova",
     "test"
-  ]
+  ],
+  "include": [
+    "src/**/*"
+   ]
 }
