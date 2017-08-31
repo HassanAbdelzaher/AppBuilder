@@ -3,11 +3,11 @@
 
 var webpack = require('webpack');
 var path = require('path');
-var sourcePath = path.join(__dirname, './example');
+var sourcePath = path.join(__dirname, './src');
 // plugins
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var outPath = path.join(__dirname,'./example/dist');
+var outPath = path.join(__dirname,'./dist');
 module.exports = {
   context: sourcePath,
   devtool: "source-map",
