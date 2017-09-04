@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as actions from '../actions/floating-panel'
 
-import {AppState} from '../reducers';
-import {FloatingPanel,FloatingPanelProps} from '@mas.eg/mas-floating-panel'
-import { connect } from 'react-redux'
+import {FloatingPanel, FloatingPanelProps} from '@mas.eg/mas-floating-panel'
 
+import {AppState} from '../reducers';
+import { connect } from 'react-redux'
 
 const mapStateToProps = (state:AppState, ownProps:FloatingPanelProps):FloatingPanelProps => {
   return {
     isOpen:state.floatingPanel.status,
     items:state.floatingPanel.items,
-    timeOut:state.floatingPanel.timeOut,
-    title:state.floatingPanel.title
+    /*timeout:state.floatingPanel.timeout,*/
+    title:state.floatingPanel.title,
+    /*actions:state.floatingPanel.actions||[]*/
   }
 }
 

@@ -1,6 +1,6 @@
 import * as actions from '../actions/map'
 
-const sidebarReducer = (state: actions.State = { center:{lat:31,lng:31},zoom:18,devicesLocations:[{LAT:29,LNG:31}]}, action) : actions.State=> {
+const sidebarReducer = (state: actions.State = { center:{lat:30,lng:29},zoom:18,devicesLocations:[]/*,bounds:null,readings:[],pipeInfo:""*/}, action) : actions.State=> {
     switch (action.type) {
         case actions.CHANGE_MAP_CENTER:
             return {
@@ -18,6 +18,11 @@ const sidebarReducer = (state: actions.State = { center:{lat:31,lng:31},zoom:18,
                 center:action.center,
                 zoom:action.zoom
             };
+            /*case actions.SET_MAP_BOUNDS:
+            return {
+                ...state,
+                bounds:action.bounds
+            };*/
             case actions.LOAD_DEVICES_LOCATIONS:
             return {
                 ...state,
@@ -34,6 +39,12 @@ const sidebarReducer = (state: actions.State = { center:{lat:31,lng:31},zoom:18,
                 ...state,
                 loading:false
             };
+            /*case actions.SET_READINGS_LOCATIONS:
+            return {
+                ...state,
+                readings:action.readings
+            }*/
+           
         default: return state
     }
 }

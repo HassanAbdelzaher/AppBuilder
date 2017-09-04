@@ -1,0 +1,13 @@
+
+.reading:before {
+    content: ' \25CF';
+    font-size: 15px;
+    color:orange;
+    cursor: pointer;
+  }
+
+  .collection:before {
+    content: ' \25CF';
+    font-size: 15px;
+    color:green
+  }

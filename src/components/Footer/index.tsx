@@ -4,6 +4,11 @@ import * as classNames from 'classnames';
 import {Tab} from 'material-ui'
 
 var style =require('./style.css');
+
+
+
+
+
 export interface FooterProps {
   height:number;
 };

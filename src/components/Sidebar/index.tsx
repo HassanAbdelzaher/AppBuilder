@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as sActions from '../../constants/sidebar-actions'
 
 import { History, Location, LocationListener, UnregisterCallback } from 'history';
 import {blue500, greenA200, red500} from 'material-ui/styles/colors';
@@ -23,17 +22,29 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import RaisedButton from 'material-ui/RaisedButton';
 import SvgIcon from 'material-ui/SvgIcon';
+import  {basic} from '@mas.eg/mas-themes/src';
 
 export interface SideProps {
   onLocationClick?: () => void,
   onSHowDrawingControlsClick?: () => void,
   onEnableAddingNewComplaintClick?: () => void,
   onClick?:(clickeItem:string)=>void,
-  toggle:()=>void
-  isOpen?:boolean
+  toggle?:()=>void,
+  open?:()=>void,
+  close?:()=>void,
+  isOpen?:boolean,
+  title?:string,
+  items?:Array<any>
 }
 
-class SideBar extends React.Component < SideProps, {
+export const HHU_LOCATIONS="HHU_LOCATIONS";
+export const CUSTOMER_LOCATIONS="CUSTOMER_LOCATIONS";
+export const DRAWING="DRAWING";
+export const ILLEGAL_CONNECTIONS="ILLEGAL_CONNECTIONS";
+export const COMPLAINTS="COMPLAINTS";
+export const SETTINGS="SETTINGS";
+
+export class Sidebar extends React.Component < SideProps, {
   isOpen : boolean
 } > {
 
@@ -68,6 +79,7 @@ class SideBar extends React.Component < SideProps, {
       <div style={{overflowX:'hidden',overflowY:'auto'}}>
         <ActionHome style={styleIcon} onClick={this.handleToggle}/>
         <Drawer
+          style={basic.drawer}
           open={this.props.isOpen}
           /*onRequestChange={(open) => this.setState({open})}*/>
           <div style={styles.AppBar}>
@@ -76,47 +88,54 @@ class SideBar extends React.Component < SideProps, {
             </div>
           </div>
           {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
               <span style={styles.label}>
                 مواقع الوحدات
               </span>
             </MenuItem>
           </a>}
           {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
               <span style={styles.label}>
                 مواقع العملاء
               </span>
             </MenuItem >
           </a>}
           {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.DRAWING)}}><EditorModeEdit style={styles.icon}/>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(DRAWING)}}><EditorModeEdit style={styles.icon}/>
               <span style={styles.label}>
                 رسم حدود مسار
               </span>
             </MenuItem>
-          </a>}
-          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
-              <span style={styles.label}>
-                التوصيلات الخلسة
-              </span>
-            </MenuItem >
-          </Link>
+          </a>}          
           <Link style={styles.a} to='/messages'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
               <span style={styles.label}>
                 الشكاوى المفتوحة
               </span>
             </MenuItem >
           </Link>
+          <Link style={styles.a} to='/messages'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
+              <span style={styles.label}>
+                اوامر الشغل
+              </span>
+            </MenuItem >
+          </Link>
           <Link style={styles.a} to='/settings'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(sActions.SETTINGS)}}><ActionSettings style={styles.icon}/>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(SETTINGS)}}><ActionSettings style={styles.icon}/>
               <span style={styles.label}>
                 الأعدادت
               </span>
             </MenuItem>
-          </Link>           
+          </Link> 
+          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
+              <span style={styles.label}>
+                التوصيلات الخلسة
+              </span>
+            </MenuItem >
+          </Link>          
         </Drawer>
       </div>
 
@@ -175,4 +194,3 @@ var styles : React.CSSProperties = {
     }
   }
 }
-export default SideBar;

@@ -1,11 +1,13 @@
 import * as actions from '../actions/floating-panel'
 
+const defaultTimeout=10000;
 const panelManger = (state : actions.State = {
     status: false,
     items: [],
     prevsMessages:[],
-    timeOut:5000,
+    timeOut:defaultTimeout,
     title:""
+    /*actions:[]*/
 }, action ):actions.State => {
     switch (action.type) {
         case actions.OPEN:
@@ -24,13 +26,19 @@ const panelManger = (state : actions.State = {
             return {
                 ...state,
                 status:true,
-                items:action.items
+                items:action.items,
+                title:action.title,
+                timeOut:action.timeout||defaultTimeout/*,
+                actions:action.actions*/
             };
         case actions.ADD_ITEM:
             return {
                 ...state,
                 status:true,
                 items:[...state.items,action.item],
+                title:action.title,
+                timeOut:action.timeout||defaultTimeout/*,
+                actions:action.actions*/
             };
         default:
             return state

@@ -1,38 +1,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as actions from './actions/floating-panel'
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import * as stores from './stores';
+import * as themes from '@mas.eg/mas-themes/src';
 
-import { Route, HashRouter as Router, Switch } from 'react-router-dom';
-
-import { Layout } from './containers/Layout';
-//import MapView from './views/MapView'
+import {Layout} from './containers/Layout';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Provider } from 'react-redux'
-import createBrowserHistory from 'history/createBrowserHistory';
+import {Provider} from 'react-redux'
+import {Router} from 'react-router-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {routes} from './routes'
-import * as themes from '@mas.eg/mas-themes/dist'
+
+// import MapView from './views/MapView' it is better to use Router not built in
+// Hash router and control the routing type from creating the history
 
 injectTapEventPlugin();
-let store=stores.store;
+let store = stores.store;
 ReactDOM.render(
-  <Provider  store={store}>
-    <Router >
-    <MuiThemeProvider muiTheme={getMuiTheme(themes.basic)}>   
-      <Layout>
-        {routes.map((route, index) => (
-          <Route
-            key={index}
-            path={route.path}
-            component={route.main}
-            exact={false}
-          />
-        ))}
-      </Layout>
-    </MuiThemeProvider>
-   </Router >
-  </Provider >,
-  document.getElementById('root')
-);
+  <Provider store={store}>
+  <MuiThemeProvider muiTheme={getMuiTheme(themes.basic)}>
+    <Router history={stores.history}>
+      <Layout/>
+    </Router >
+  </MuiThemeProvider>
+</Provider>, document.getElementById('root'));

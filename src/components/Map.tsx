@@ -1,20 +1,28 @@
 import * as React from 'react';
 
-import {BaseLayer, LayersControl, Overlay} from '@mas.eg/mas-leaflet/src';
+import {BaseLayer, LayersControl, Overlay} from '@mas.eg/mas-leaflet';
+import {CircleMarker, FeaturGroup} from '@mas.eg/mas-leaflet';
 
-import {CircleMarker} from '@mas.eg/mas-leaflet/dist';
-import {FeatureGroup} from '@mas.eg/mas-leaflet/src/FeatureGroup';
+import {GeoJsonLayer} from '@mas.eg/mas-leaflet';
+import {GoogleLayer} from '@mas.eg/mas-leaflet';
+import {Map} from '@mas.eg/mas-leaflet'
+import {Marker} from '@mas.eg/mas-leaflet';
+import {MarkerClusterGroup} from '@mas.eg/mas-leaflet';
+import {NewLineControl} from '@mas.eg/mas-leaflet';
+import {PolyLine} from '@mas.eg/mas-leaflet';
+import {Popup} from '@mas.eg/mas-leaflet';
+import {TileLayer} from '@mas.eg/mas-leaflet';
+
 //import FloatingPanel from '../containers/FloatingPanel';
-import {GeoJsonLayer} from '@mas.eg/mas-leaflet/dist';
-import {GoogleLayer} from '@mas.eg/mas-leaflet/dist';
-import {Map} from '@mas.eg/mas-leaflet/dist'
-import {Marker} from '@mas.eg/mas-leaflet/dist';
-import {MarkerClusterGroup} from '@mas.eg/mas-leaflet/dist';
-import {NewLineControl} from '@mas.eg/mas-leaflet/dist';
-import {PolyLine} from '@mas.eg/mas-leaflet/dist';
-import {Popup} from '@mas.eg/mas-leaflet/dist';
-import {TileLayer} from '@mas.eg/mas-leaflet/dist';
-import {VectorGridLayer} from '@mas.eg/mas-leaflet/dist';
+
+
+
+
+
+
+
+
+
 
 //to override build error the name of the file is case sensitive
 export interface MapViewProps {
@@ -74,10 +82,11 @@ export default class MapView extends React.Component < MapViewProps, {
   //  this.setState(function (prevState, props) {         return {           zoom:
   // this.state.zoom - 1         };       });
   componentDidMount() {    
-    window.onkeypress(this.onkeypress.bind(this));
+    window.onkeypress=this.onkeypress;
   }
   componentWillUnmount(){
     window.removeEventListener("onkeypress",this.onkeypress);
+    window.onkeypress=undefined;
   }
   bindMap(el) {
     if (el && el.leafletElement) 
@@ -155,7 +164,7 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>
         <Overlay checked={this.props.devicesLocations.length>0} name="اماكن الوحدات">
-          <MarkerClusterGroup options={{}}>
+          <MarkerClusterGroup clusterName="devices" options={{}}>
             {devices}
           </MarkerClusterGroup>
         </Overlay>

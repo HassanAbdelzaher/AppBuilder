@@ -1,5 +1,8 @@
+import * as sActions from './settings'
+
 import {CONNECTION_STATUS} from '../components/ConnectionMonitor'
-import {WebSocketHandler} from '@mas.eg/mas-sockets/dist';
+import {WebSocketHandler} from '@mas.eg/mas-sockets/src'
+
 //IMPORTANT NOTE ACTION NAMES MUST BE UNIQUE IN THE APPLICATION 
 
 export const CONNECT="CONNECT";
@@ -31,6 +34,18 @@ export const connect = () => {
   }
 }
 
+
+export const changeConnectionSettings = (config:{server:string,port:number,namespace:string}) => {
+  return function(dispatch,getState,{client}){
+    let cl:WebSocketHandler=client;
+    let url=(config.server)+":"+(config.port)+"/"+(config.namespace);
+    if(cl){
+      //cl.reConfig(url);
+    }
+    //changing the server settings     
+    dispatch(sActions.saveSettings(config))
+  }
+}
 
 export const disConnect = () => {
   return {

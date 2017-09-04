@@ -1,24 +1,28 @@
 import * as React from 'react';
 
+import {Redirect, Route, Switch} from 'react-router-dom';
+import { ToastContainer, toast } from '@mas.eg/mas-toastr';
+
 import {AppBar} from 'material-ui';
 import ConnectionMonitor from '../../containers/ConnectionMonitor';
 import FloatingPanel from '../FloatingPanel'
 import {Footer} from '../../components/Footer/index'
 import Header from '../Header'
+import Loading from '../loading'
 import M_Toolbar from '../../components/Toolbar'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import SideBar from '../../components/sidebar'
+import Routes from '../../routes';
+import SettingsView from '../SettingsPage';
+import SideBar from '../sidebar'
 
+toast("welcom","error");
 var style =require('./style.css');
-
 export class Layout extends React.Component<any, any> {
   constructor() {
     super();
     let height=window.innerHeight-81;    
     this.state = { };    
-    this.handleOnAdd=this.handleOnAdd.bind(this);
     this.onWindowResized=this.onWindowResized.bind(this);
-    this.handleOncLICK=this.handleOncLICK.bind(this);
   }
   renderHeader(){
     return <AppBar style={{width:'100%'}}
@@ -26,23 +30,13 @@ export class Layout extends React.Component<any, any> {
       iconClassNameRight="muidocs-icon-navigation-expand-more"
     />
   }
-  handleOnAdd(){
-  }
   componentDidMount(){
       window.onresize = this.onWindowResized;
   }
-  componentWillReceiveProps(nextProps: any, nextContext: any) {
-    console.log('layout reciving props');
-    console.dir({nextProps,nextContext});    
-  }
   private onWindowResized (event:UIEvent):void
-    {
-        let height=window.innerHeight-81;    
-        this.setState({height})
-    }
-
-  handleOncLICK(){
-    this.props.ui.openFloatingPanel();
+  {
+      let height=window.innerHeight-81;    
+      this.setState({height})
   }
 
   
@@ -69,8 +63,9 @@ export class Layout extends React.Component<any, any> {
     flexGrow:1000,
     position:'relative',
     height:'100%',
-    overflow:'hidden'
-  }
+    overflow:'hidden',
+    textAlign:'center'
+   }
   footStyle:React.CSSProperties={
     padding:0,
     margin:0,
@@ -89,11 +84,19 @@ export class Layout extends React.Component<any, any> {
     }); 
     return <div style={this.layoutStyle}>
       <ConnectionMonitor/>
+      <Loading/>
+      <ToastContainer 
+          position="bottom-right"
+          type="default"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+        />
       <Header title={"Mas"}/>
       <div style={this.contentStyle}>
-        {this.props.children
-          ? this.props.children
-          : 'loading....'}
+        <Routes/>
         <FloatingPanel
           style={{
           height: '100%',
@@ -102,23 +105,3 @@ export class Layout extends React.Component<any, any> {
     </div>
   }}
   
-  /*
-  render(){
-    const children = React.Children.map(this.props.children, child => {
-      return child ? React.cloneElement(child as React.ReactElement<any>, {}) : null
-    }); 
-    return <div style={this.layoutStyle}>
-      <ConnectionMonitor ConnState={this.props.ui.ConnState} />
-      <Header title={"Mas"}/>
-      <div style={this.contentStyle}>
-        {this.props.children
-          ? this.props.children
-          : 'loading....'}
-        <FloatingPanel
-          style={{
-          height: '100%',
-        }}/>
-      </div>
-    </div>
-  }
-}*/
