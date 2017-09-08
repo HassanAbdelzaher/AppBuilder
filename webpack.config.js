@@ -94,7 +94,7 @@ module.exports = {
       }
     }),
     new ExtractTextPlugin({filename: 'styles.css', disable: true}),
-    new HtmlWebpackPlugin({template: 'src/index.html'})/*,
+    new HtmlWebpackPlugin({template: 'index.html'})/*,
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.bundle.js',
