@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state:AppState, ownProps):LoadingPropTypes => {
   return {
     title:'loading...',
-    show:state.loading.showLoading,
+    show:false,
     color:'white',
     type:LoadingType.bars
   }

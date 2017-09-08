@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import {Form, FormPropTypes} from '@mas.eg/mas-forms/src';
-
-import {TextField} from '@mas.eg/mas-forms-fields-material-ui'
+import {TextField, Toggle} from '@mas.eg/mas-forms-fields-material-ui'
 
 export interface SettingsFormProps extends FormPropTypes {}
 export class SettingsForm extends React.Component < SettingsFormProps,
@@ -66,8 +65,9 @@ any > {
             <TextField
                 required
                 name="namespace"
-                floatingLabelText="namespace"
                 hintText="المجموعة"/>
+            <Toggle name="navigate"/>
+           
             <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
         </Form>
     }

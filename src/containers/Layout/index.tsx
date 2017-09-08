@@ -4,7 +4,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import { ToastContainer, toast } from '@mas.eg/mas-toastr';
 
 import {AppBar} from 'material-ui';
-import ConnectionMonitor from '../../containers/ConnectionMonitor';
+import ConnectionMonitor from '../ConnectionMonitor';
 import FloatingPanel from '../FloatingPanel'
 import {Footer} from '../../components/Footer/index'
 import Header from '../Header'

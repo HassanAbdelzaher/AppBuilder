@@ -13,17 +13,6 @@ import {PolyLine} from '@mas.eg/mas-leaflet';
 import {Popup} from '@mas.eg/mas-leaflet';
 import {TileLayer} from '@mas.eg/mas-leaflet';
 
-//import FloatingPanel from '../containers/FloatingPanel';
-
-
-
-
-
-
-
-
-
-
 //to override build error the name of the file is case sensitive
 export interface MapViewProps {
   onFeatureClick?: ({}) => void,
@@ -39,7 +28,6 @@ export interface MapViewProps {
     }
   >
 }
-
 
 export default class MapView extends React.Component < MapViewProps, {
   zoom : number

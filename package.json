@@ -63,7 +63,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "@mas.eg/mas-floating-panel": "^1.0.1",
+    "@mas.eg/mas-floating-panel": "^1.0.3",
     "@mas.eg/mas-forms": "^1.0.0",
     "@mas.eg/mas-forms-fields-material-ui": "^1.0.0",
     "@mas.eg/mas-leaflet": "^1.0.3",
@@ -83,6 +83,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "sass-svg": "^1.1.0",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.3",
+    "webpack": "^3.0.0"
   }
 }
