@@ -8,15 +8,19 @@ import { Message, WebSocketHandler } from '@mas.eg/mas-sockets/src';
 export default function (store,client:WebSocketHandler) {
     store.dispatch(cActions.create(client));
     store.dispatch(sActions.loadLocalSettings());
-    store.dispatch(sActions.loadServerSettings())
+    store.dispatch(sActions.loadServerSettings());
+    initSocket(client,store.dispatch);
+}
+
+export function initSocket(client:WebSocketHandler,dispatch:(action)=>void){
     client.onConnect(() => {
-        store.dispatch(cActions.connect());
+        dispatch(cActions.connect());
     });
     client.onDisconnect(() => {
-        store.dispatch(cActions.disConnect());
+        dispatch(cActions.disConnect());
     });
     client.onReconnecting(() => {
-        store.dispatch(cActions.reConnecting());
+        dispatch(cActions.reConnecting());
     });
     client.onReConnect(() => {
         console.log("reconnected");
@@ -27,7 +31,7 @@ export default function (store,client:WebSocketHandler) {
             : undefined;
         if (message) {
             if (typeof message == "string") 
-                store.dispatch(pActions.setItems([
+                dispatch(pActions.setItems([
                     {
                         name: "",
                         value: message
@@ -39,10 +43,10 @@ export default function (store,client:WebSocketHandler) {
                     .map((k) => {
                         return {name: k, value: message[k]}
                     });
-                store.dispatch(pActions.setItems(items));
+                dispatch(pActions.setItems(items));
 
             } else {
-                store.dispatch(pActions.setItems([
+                dispatch(pActions.setItems([
                     {
                         name: "",
                         value: message
@@ -54,8 +58,7 @@ export default function (store,client:WebSocketHandler) {
             ? msg.map
             : undefined;
         if (mapMessage) {
-            store.dispatch(mActions.move(mapMessage.zoom, mapMessage.center))
+            dispatch(mActions.move(mapMessage.zoom, mapMessage.center))
         }
     });
-
 }

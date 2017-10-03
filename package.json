@@ -1,7 +1,7 @@
 {
-  "name": "mas-app-seed",
-  "version": "1.0.1",
-  "description": "module seed used for creating new mas module",
+  "name": "om-tv",
+  "version": "1.0.0",
+  "description": "Operation and amntinace monitor on tv",
   "scripts": {
     "prepublish": "npm run build",
     "dev": "set NODE_ENV=devlopment& webpack-dev-server --port 3000 --config webpack.config.js --hot",
@@ -11,7 +11,7 @@
     "node": ">=8.3 <9"
   },
   "keywords": [
-    "mas-module-starter-kit"
+    "operation and mantinance"
   ],
   "author": "Hassan Mohammed",
   "license": "MIT",
@@ -68,7 +68,7 @@
     "@mas.eg/mas-forms-fields-material-ui": "^1.0.0",
     "@mas.eg/mas-leaflet": "^1.2.2",
     "@mas.eg/mas-loading": "^1.0.0",
-    "@mas.eg/mas-sockets": "^1.0.1",
+    "@mas.eg/mas-sockets": "^1.2.0",
     "@mas.eg/mas-themes": "^1.0.0",
     "@mas.eg/mas-toastr": "^1.0.2",
     "@mas.eg/mas-utls": "^1.0.0",

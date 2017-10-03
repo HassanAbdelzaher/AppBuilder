@@ -86,28 +86,7 @@ export class Sidebar extends React.Component < SideProps, {
             <div style={styles.title}>ManPoint</div>
             <div style={styles.name}>User name
             </div>
-          </div>
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
-              <span style={styles.label}>
-                مواقع الوحدات
-              </span>
-            </MenuItem>
-          </a>}
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
-              <span style={styles.label}>
-                مواقع العملاء
-              </span>
-            </MenuItem >
-          </a>}
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(DRAWING)}}><EditorModeEdit style={styles.icon}/>
-              <span style={styles.label}>
-                رسم حدود مسار
-              </span>
-            </MenuItem>
-          </a>}          
+          </div>         
           <Link style={styles.a} to='/messages'>
             <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
               <span style={styles.label}>

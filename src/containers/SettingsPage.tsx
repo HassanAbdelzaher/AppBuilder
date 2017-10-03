@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps:SettingsFormProps):SettingsFormPr
   return {
     onSubmit:(model:{server:string,port:number,namespace:string},reset,update)=>{
       dispatch(cActions.changeConnectionSettings({server:model.server,port:model.port,namespace:model.namespace}));
+      dispatch(sActions.saveSettings(model));      
      return model;
    }
   }
