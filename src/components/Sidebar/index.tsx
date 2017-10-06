@@ -77,15 +77,14 @@ export class Sidebar extends React.Component < SideProps, {
     });
     return (
       <div style={{overflowX:'hidden',overflowY:'auto'}}>
-        <ActionHome style={styleIcon} onClick={this.handleToggle}/>
+      <ActionHome style={styleIcon} onClick={this.handleToggle}/>
         <Drawer
           style={basic.drawer}
           open={this.props.isOpen}
           /*onRequestChange={(open) => this.setState({open})}*/>
           <div style={styles.AppBar}>
+            <NavigationClose style={styleIcon} onClick={this.handleToggle}/>
             <div style={styles.title}>ManPoint</div>
-            <div style={styles.name}>User name
-            </div>
           </div>         
           <Link style={styles.a} to='/messages'>
             <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
@@ -135,7 +134,8 @@ var styles : React.CSSProperties = {
     fontSize: '24px',
     fontWeight: 'bold',
     textAlign: 'left',
-    marginLeft: '40px'
+    marginLeft: '40px',
+    float:'right'
   },
   name: {
     color: '#ecf4ff',
@@ -145,12 +145,12 @@ var styles : React.CSSProperties = {
     fontSize: "14px"
   },
   icon: {
-    color: "#777",
     textAlign: 'left',
     margin: '10px',
-    float: 'right',
+    float: 'left',
     height: '26px',
     width: '26',
+    color:'white',
     hover: {
       color: 'red',
       fill: "red",

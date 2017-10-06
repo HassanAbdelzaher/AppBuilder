@@ -109,6 +109,8 @@ export default class MapView extends React.Component < MapViewProps, {
       // fayoum
     }
 
+    console.log('rendering map');
+
     const mapStyle = {
       width: '100%',
       height: '100%',
@@ -160,7 +162,7 @@ export default class MapView extends React.Component < MapViewProps, {
       .bindMap
       .bind(this)}
       accurecyCircle={false}
-      followLocation={true}
+      followLocation={false}
       maxZoom={18}
       style={mapStyle}
       center={center}
@@ -168,13 +170,13 @@ export default class MapView extends React.Component < MapViewProps, {
       zoom={this.state.zoom} useFlyTo={true} >
       <Marker position={center}/>
       <LayersControl position="topright">
-        <BaseLayer name="roadmap">
+        <BaseLayer checked={true} name="roadmap">
           <GoogleLayer maptype="ROADMAP"/>
         </BaseLayer>
         <BaseLayer name="roadmap">
           <GoogleLayer maptype="SATELLITE"/>
         </BaseLayer>
-        <BaseLayer checked={true} name="hybrid">
+        <BaseLayer  name="hybrid">
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>
         <Overlay key={"1"} checked={this.props.devicesLocations.length>0} name="اماكن الوحدات">
@@ -188,7 +190,7 @@ export default class MapView extends React.Component < MapViewProps, {
           </MarkerClusterGroup>
         </Overlay>
         <Overlay checked={true} name="خطوط المياة الرئيسية">
-          <GeoJsonLayer  path="./dist/res/pipes.geojson" onClick={this.handlePipeClick.bind(this)} />
+          <GeoJsonLayer  path="./res/markazboundary.geojson" onClick={this.handlePipeClick.bind(this)} />
         </Overlay>
         
       </LayersControl>

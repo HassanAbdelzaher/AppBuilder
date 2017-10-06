@@ -41,6 +41,7 @@ export const togglePanel = ():{type:string} => {
 }
 
 export const setItems = (items:Array<Item>):{type:string,items:Array<Item>} => {
+  console.log("fire set items action")
   return {
     type: SET_ITEMS,
     items

@@ -50,23 +50,23 @@ export default class MapView extends React.Component < MapViewProps, {
       .props
       .onFeatureClick(evt);
   }
-    onkeypress(e){
-      if(!this.map)
-          return;
-        if (e.keyCode == 49) { //no 1 make zoom in
-          this.map.zoomIn()
-        } else if (e.keyCode == 55) { // no 7 make zoom out
-          this.map.zoomOut()
-        } else if (e.keyCode == 50) {
-          this.map.panBy([0, 100]); // no 2 handle up pan
-        } else if (e.keyCode == 56) {
-          this.map.panBy([0, -100]); // no 8 handle down pan
-        } else if (e.keyCode == 54) {
-          this.map.panBy([-100, 0]); // no 6 handle right pan
-        } else if (e.keyCode == 52) {
-          this.map.panBy([100, 0]); // no 4 handle left pan
-        }
-    }
+  onkeypress(e){
+    if(!this.map)
+        return;
+      if (e.keyCode == 49) { //no 1 make zoom in
+        this.map.zoomIn()
+      } else if (e.keyCode == 55) { // no 7 make zoom out
+        this.map.zoomOut()
+      } else if (e.keyCode == 50) {
+        this.map.panBy([0, 100]); // no 2 handle up pan
+      } else if (e.keyCode == 56) {
+        this.map.panBy([0, -100]); // no 8 handle down pan
+      } else if (e.keyCode == 54) {
+        this.map.panBy([-100, 0]); // no 6 handle right pan
+      } else if (e.keyCode == 52) {
+        this.map.panBy([100, 0]); // no 4 handle left pan
+      }
+  }
   //  this.setState(function (prevState, props) {         return {           zoom:
   // this.state.zoom - 1         };       });
   componentDidMount() {    
