@@ -1,9 +1,9 @@
-import {toast} from '@mas.eg/mas-toastr';
+import { ToastContainer, toast } from '@mas.eg/mas-toastr';
 
 export const showError=(error:string)=>{
     return()=>{
         toast.error(error, {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITION.BOTTOM_RIGHT
         });
     }
 }
@@ -12,7 +12,7 @@ export const showError=(error:string)=>{
 export const showMessage=(error:string)=>{
     return()=>{
         toast.info(error, {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITION.BOTTOM_RIGHT
         });
     }
 }
@@ -21,7 +21,7 @@ export const showMessage=(error:string)=>{
 export const showWarn=(error:string)=>{
     return()=>{
         toast.warn(error, {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITION.BOTTOM_RIGHT
         });
     }
 }
@@ -30,7 +30,7 @@ export const showWarn=(error:string)=>{
 export const showSuccess=(error:string)=>{
     return()=>{
         toast.success(error, {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITION.BOTTOM_RIGHT
         });
     }
 }

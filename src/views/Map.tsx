@@ -9,13 +9,11 @@ var classes=require('./map-icons.css');
 
 //to override build error the name of the file is case sensitive
 export interface MapViewProps {
-  onFeatureClick?: ({}) => void,
   zoom?: number,
   center?: {
     lat: number,
     lng: number
   },
-  pipeInfo?:string|object,
   devicesLocations?: Array<
     {
       LAT: number,
@@ -23,15 +21,8 @@ export interface MapViewProps {
     }
   >,
   bounds?:[number,number][],
-  onDeviceClick?:(evt)=>void,
-  onPipeClick?:(info)=>void,
-  
-  readings?:Array<
-  {
-    LAT: number,
-    LNG: number
-  }
->
+  onPipeClick?: (properties,evt) => void,
+  onDeviceClick?:(properties,evt)=>void
 }
 
 const readingIcon=L.divIcon({className:classes.reading});
@@ -44,19 +35,11 @@ export default class MapView extends React.Component < MapViewProps, {
   markers : React.ReactElement < Marker > []
   map:L.Map
   constructor(props) {
-    super(props);
-    this.handleGeoClick = this
-      .handleGeoClick
-      .bind(this);
+    super(props);    
     this.state = {
       zoom: this.props.zoom||13
     }
-  }
-  handleGeoClick(evt) {
-    this
-      .props
-      .onFeatureClick(evt);
-  }
+  }  
     onkeypress(e){
       if(!this.map)
           return;
@@ -98,8 +81,10 @@ export default class MapView extends React.Component < MapViewProps, {
   handleDownPanClick() {
     this.map.panBy([0, 100]);
   }
-  handlePipeClick(evt){
-    this.props.onPipeClick(evt);
+  handlePipeClick(properties,evt){
+    console.dir(evt);
+    if(this.props.onPipeClick)
+      this.props.onPipeClick(properties||{},evt||{});
   }
   render() {
     const center = this.props.center || {
@@ -115,8 +100,7 @@ export default class MapView extends React.Component < MapViewProps, {
       width: '100%',
       height: '100%',
       minHeight: 200,
-      minWidth: 200,
-      display: 'block'
+      minWidth: 200
     }    
   
     const devices = (this.props.devicesLocations || ([]as[
@@ -130,31 +114,15 @@ export default class MapView extends React.Component < MapViewProps, {
       else 
         return false
     }).map((device,key) => {
-      return <Marker onClick={()=>{
+      return <Marker onClick={(evt)=>{
         if(this.props.onDeviceClick)
-          this.props.onDeviceClick(device);
+          this.props.onDeviceClick(device,evt);
         }}  key={key} position={{
         lat: device.LAT,
         lng: device.LNG
       }} />
     });
 
-    const readingsLocations = (this.props.readings || ([]as[
-      {
-        LAT,
-        LNG
-      }
-    ])).filter((rdg) => {
-      if (rdg.LAT > 0 && rdg.LNG > 0) 
-        return true;
-      else 
-        return false
-    }).map((rdg,key) => {
-      return <Marker icon={readingIcon}  key={"c"+key} position={{
-        lat: rdg.LAT,
-        lng: rdg.LNG
-      }} />
-    });
   
    const mapBounds=this.props.bounds && this.props.bounds.length>0?L.latLngBounds(this.props.bounds):undefined;
     return <Map
@@ -163,13 +131,16 @@ export default class MapView extends React.Component < MapViewProps, {
       .bind(this)}
       accurecyCircle={false}
       followLocation={false}
-      maxZoom={18}
+      enableKeyNavigation={true}
+      maxZoom={19}
       style={mapStyle}
       center={center}
-      bounds={mapBounds}
-      zoom={this.state.zoom} useFlyTo={true} >
+      zoom={this.state.zoom} useFlyTo={false} >
       <Marker position={center}/>
       <LayersControl position="topright">
+      <BaseLayer name="openstreet">
+          <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+      </BaseLayer>
         <BaseLayer checked={true} name="roadmap">
           <GoogleLayer maptype="ROADMAP"/>
         </BaseLayer>
@@ -178,22 +149,9 @@ export default class MapView extends React.Component < MapViewProps, {
         </BaseLayer>
         <BaseLayer  name="hybrid">
           <GoogleLayer maptype="HYBRID"/>
-        </BaseLayer>
-        <Overlay key={"1"} checked={this.props.devicesLocations.length>0} name="اماكن الوحدات">
-          <MarkerClusterGroup iconColor="blue" clusterName="U" key={"11"} options={{}}>
-            {devices}
-          </MarkerClusterGroup>
-        </Overlay>
-        <Overlay key={"2"} checked={readingsLocations.length>0} name="اماكن القراءات">
-          <MarkerClusterGroup iconColor="green" clusterName="R" key={"21"} options={{}}>
-            {readingsLocations}
-          </MarkerClusterGroup>
-        </Overlay>
-        <Overlay checked={true} name="خطوط المياة الرئيسية">
-          <GeoJsonLayer  path="./res/markazboundary.geojson" onClick={this.handlePipeClick.bind(this)} />
-        </Overlay>
-        
+        </BaseLayer>        
       </LayersControl>
+      <GeoJsonLayer  path="./res/markazboundary.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
     </Map>
 
   }

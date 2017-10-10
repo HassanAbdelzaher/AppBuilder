@@ -21,15 +21,15 @@ export interface State {
     lat: number,
     lng: number
   },
-  pipeInfo:string|object,
   zoom : number,
-  devicesLocations : Array < {
+  devicesLocations? : Array < {
     LAT: number,
     LNG: number
   } >;
+  pipeInfo?:string|object,  
   loading?: boolean,
   bounds?: [number, number][],
-  readings:Array < {
+  readings?:Array < {
     LAT: number,
     LNG: number
   } >

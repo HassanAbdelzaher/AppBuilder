@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) : MapViewProps=> {
     },
     onPipeClick:(pipe)=>{
       dispatch(fActions.setMessage(pipe));
-      tActions.showMessage("done")
+      dispatch(tActions.showMessage("done"));
     }
   }
 }
