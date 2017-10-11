@@ -135,13 +135,12 @@ export default class MapView extends React.Component < MapViewProps, {
       maxZoom={19}
       style={mapStyle}
       center={center}
-      zoom={this.state.zoom} useFlyTo={false} >
-      <Marker position={center}/>
+      zoom={this.state.zoom} useFlyTo={true} >
       <LayersControl position="topright">
-      <BaseLayer name="openstreet">
+      <BaseLayer checked={true} name="openstreet">
           <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
       </BaseLayer>
-        <BaseLayer checked={true} name="roadmap">
+        <BaseLayer  name="roadmap">
           <GoogleLayer maptype="ROADMAP"/>
         </BaseLayer>
         <BaseLayer name="roadmap">
@@ -151,7 +150,8 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>        
       </LayersControl>
-      <GeoJsonLayer  path="./res/markazboundary.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer minZoom={16}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer  path="./res/markazboundary.geojson" />
     </Map>
 
   }

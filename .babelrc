@@ -3,7 +3,7 @@
     "plugins": ["transform-runtime"],
     "env": {
         "production": {
-        "presets": ["babili"]
+        "presets": []
         }
     }
 }
