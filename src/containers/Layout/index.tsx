@@ -16,7 +16,6 @@ import SettingsView from '../SettingsPage';
 import SideBar from '../sidebar'
 
 toast("welcom","error");
-var style =require('./style.css');
 export class Layout extends React.Component<any, any> {
   constructor() {
     super();
@@ -44,7 +43,6 @@ export class Layout extends React.Component<any, any> {
     padding:0,
     margin:0,
     position:'absolute',
-    backgroundColor:'yellow',
     height:'100%',
     width:'100%',
     minHeight:'10px',
@@ -57,14 +55,13 @@ export class Layout extends React.Component<any, any> {
   contentStyle:React.CSSProperties={
     padding:0,
     margin:0,
-    backgroundColor:'whitesmoke',
     width:'100%',
     alignSelf:'stretch',
     flexGrow:1000,
     position:'relative',
     height:'100%',
-    overflow:'hidden',
-    textAlign:'center'
+    overflow:'hidden'/*, this kill google maps
+    textAlign:'center'*/
    }
   footStyle:React.CSSProperties={
     padding:0,

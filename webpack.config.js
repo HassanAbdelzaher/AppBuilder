@@ -25,6 +25,7 @@ module.exports = {
   module: {
     loaders: [
       // .ts, .tsx
+      
       {
         test: /\.tsx?$/,
         use: [

@@ -132,7 +132,7 @@ export default class MapView extends React.Component < MapViewProps, {
       accurecyCircle={false}
       followLocation={false}
       enableKeyNavigation={true}
-      maxZoom={19}
+      maxZoom={20}
       style={mapStyle}
       center={center}
       zoom={this.state.zoom} useFlyTo={true} >
@@ -150,8 +150,8 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>        
       </LayersControl>
-      <GeoJsonLayer minZoom={16}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
-      <GeoJsonLayer  path="./res/markazboundary.geojson" />
+      <GeoJsonLayer minZoom={14}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer maxZoom={12}  path="./res/markazboundary.geojson" />
     </Map>
 
   }
