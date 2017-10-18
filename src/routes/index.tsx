@@ -9,6 +9,7 @@ const NotFound=()=>{return <h1 style={{color:'red'}}>NOT FOUND</h1>}
 export default ()=>{return (
   <Switch>
         <Route path="/" exact={true} component={MapView} />
+        {/*<Route path="/MAP" component={MapView} />*/}
         <Route path="/settings" component={SettingsPage} />
         <Route path="/notfound" component={NotFound} />
         <Redirect path="/map" to="/" />

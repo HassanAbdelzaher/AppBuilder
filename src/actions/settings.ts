@@ -10,7 +10,8 @@ import {WebSocketHandler} from '@mas.eg/mas-sockets/src';
 export interface State {
     server : string,
     port : number,
-    namespace: string
+    namespace: string,
+    layerSettings:Array<{layer:string,settings:{maxZoom:number,minZoom:number,features:number,thread:number}}>
 }
 export const loadLocalSettings = () => {
     return {

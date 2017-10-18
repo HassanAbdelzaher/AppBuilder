@@ -31,5 +31,6 @@ export interface AppState{
     sidebar:SidebarState,
     map:MapState,
     settings:SettingsState,
+    
     loading:LoadingState
 }

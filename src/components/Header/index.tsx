@@ -8,6 +8,7 @@ import Menue from '../Menu/index'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import RaisedButton from 'material-ui/RaisedButton';
 import SideBar from '../../containers/Sidebar'
+import {Link} from 'react-router-dom';
 
 const defaulStyle={
   height:50
@@ -37,7 +38,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <AppBar style={{height:this.props.heigth,textAlign:'center'}}
           title={this.props.title}
-          iconElementRight={<button onClick={()=>{}} >back</button>}
+          iconElementRight={<Link style={styles.link} to='/map'>Back</Link>}
           iconElementLeft={<SideBar/>}
 
             />     );
@@ -45,3 +46,10 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 }
 
 export default Header;
+var styles : React.CSSProperties = {
+ link:{     
+      color: 'white',
+      textDecoration: 'none',
+      fontSize: 20
+  }
+}

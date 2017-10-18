@@ -22,7 +22,10 @@ export interface MapViewProps {
   >,
   bounds?:[number,number][],
   onPipeClick?: (properties,evt) => void,
-  onDeviceClick?:(properties,evt)=>void
+  onDeviceClick?:(properties,evt)=>void,
+ // layersSettings?:{"pipes":{maxZoom:number,minZoom:number,features:number,thread:number},}
+
+  layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,features:number,thread:number}}>
 }
 
 const readingIcon=L.divIcon({className:classes.reading});
@@ -37,7 +40,7 @@ export default class MapView extends React.Component < MapViewProps, {
   constructor(props) {
     super(props);    
     this.state = {
-      zoom: this.props.zoom||13
+      zoom: this.props.zoom||15
     }
   }  
     onkeypress(e){
@@ -87,12 +90,14 @@ export default class MapView extends React.Component < MapViewProps, {
       this.props.onPipeClick(properties||{},evt||{});
   }
   render() {
+     
     const center = this.props.center || {
-      lat: 29.355928713231339,
-      lng: 30.805001088273251
+      lat: -72.99132727730068,
+      lng: 46.1774400905128
       // -72.99132727730068,46.1774400905128 30.805001088273251, 29.355928713231339
       // fayoum
     }
+console.log(this.props.layersSettings[0]);
 
     console.log('rendering map');
 
@@ -121,9 +126,7 @@ export default class MapView extends React.Component < MapViewProps, {
         lat: device.LAT,
         lng: device.LNG
       }} />
-    });
-
-  
+    });  
    const mapBounds=this.props.bounds && this.props.bounds.length>0?L.latLngBounds(this.props.bounds):undefined;
     return <Map
       ref={this
@@ -150,9 +153,9 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>        
       </LayersControl>
-      <GeoJsonLayer minZoom={14}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer {...this.props.layersSettings[0].setting}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
       <GeoJsonLayer maxZoom={12}  path="./res/markazboundary.geojson" />
     </Map>
-
+//{...this.props.layersSettings["pipe"]}
   }
 }

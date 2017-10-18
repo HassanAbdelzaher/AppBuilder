@@ -1,6 +1,6 @@
 import * as actions from '../actions/map'
 
-const sidebarReducer = (state: actions.State = { center:{lat:30,lng:29},zoom:18,devicesLocations:[]/*,bounds:null,readings:[],pipeInfo:""*/}, action) : actions.State=> {
+const sidebarReducer = (state: actions.State = { center:{lat:30,lng:29},zoom:18,devicesLocations:[],layerSettings:[{layer:null,setting:{maxZoom:12,minZoom:15,features:25,thread:15}}]/*,bounds:null,readings:[],pipeInfo:""*/}, action) : actions.State=> {
     switch (action.type) {
         case actions.CHANGE_MAP_CENTER:
             return {
@@ -38,6 +38,12 @@ const sidebarReducer = (state: actions.State = { center:{lat:30,lng:29},zoom:18,
             return {
                 ...state,
                 loading:false
+            };
+             case actions.SETLAERSETTINGS:             
+            return {
+                ...state,
+                layerSettings:action.layerSettings
+                
             };
             /*case actions.SET_READINGS_LOCATIONS:
             return {

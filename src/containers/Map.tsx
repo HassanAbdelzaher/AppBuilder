@@ -12,9 +12,11 @@ const mapStateToProps = (state: AppState, ownProps): MapViewProps => {
     zoom: state.map.zoom,
     center: state.map.center,
     devicesLocations: state.map.devicesLocations,
+    layersSettings:state.map.layerSettings,
     /*bounds: state.map.bounds,
     readings:state.map.readings*/
   }
+  
 }
 
 

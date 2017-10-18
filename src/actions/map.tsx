@@ -7,7 +7,7 @@ export const FAILED_LOAD_DEVICES_LOCATIONS = "FAILED_LOAD_DEVICES_LOCATIONS";
 export const SET_MAP_BOUNDS = "SET_MAP_BOUNDS";
 export const SET_READINGS_LOCATIONS = "SET_READINGS_LOCATIONS";
 export const SHOW_FETURE_INFO ="SHOW_FETURE_INFO";
-
+export const SETLAERSETTINGS="SETLAERSETTINGS"
 import * as React from 'react';
 import * as fAction from '../actions/floating-panel';
 import * as hist from 'history';
@@ -33,6 +33,9 @@ export interface State {
     LAT: number,
     LNG: number
   } >
+   // layersSettings?:{layerName:{maxZoom:number,minZoom:number,features:number,thread:number}}
+
+  layerSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,features:number,thread:number}}>
 }
 
 export const setCenter = (center : {
@@ -175,4 +178,31 @@ export const loadDevicesLocations = () => {
       alert("socket connection not defined")
     }
   }
+}
+export const savingLayerSettings = (settings:any) =>{
+  console.log(settings);
+  
+//   let obj={
+//     "pipes":{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP},
+//     "stations":{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP},
+//     "v":{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV},
+//     "bounds":{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,features:settings.featuresBo,thread:settings.threadBo}
+// }
+  let obj=[
+         {
+          layer:"pipe",
+          setting:{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP}
+          },
+          {
+            layer:"bounds",setting:{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,features:settings.featuresBo,thread:settings.threadBo}
+          },
+          {layer:"v",setting:{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV}},
+          {     
+           layer:"stations",setting:{maxZoom:settings.maxZoomS,minZoom:settings.minZoomS,features:settings.featuresS,thread:settings.threadS}
+          }
+  ]
+   return {
+      type: 'SETLAERSETTINGS',
+      layerSettings:obj 
+}
 }
