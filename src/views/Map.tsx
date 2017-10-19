@@ -89,18 +89,15 @@ export default class MapView extends React.Component < MapViewProps, {
     if(this.props.onPipeClick)
       this.props.onPipeClick(properties||{},evt||{});
   }
-  render() {
-     
+  render() {     
     const center = this.props.center || {
       lat: -72.99132727730068,
       lng: 46.1774400905128
       // -72.99132727730068,46.1774400905128 30.805001088273251, 29.355928713231339
       // fayoum
     }
-console.log(this.props.layersSettings[0]);
-
+    console.log(this.props.layersSettings[0]);
     console.log('rendering map');
-
     const mapStyle = {
       width: '100%',
       height: '100%',
@@ -127,6 +124,7 @@ console.log(this.props.layersSettings[0]);
         lng: device.LNG
       }} />
     });  
+   console.log({layersSettings:this.props.layersSettings});
    const mapBounds=this.props.bounds && this.props.bounds.length>0?L.latLngBounds(this.props.bounds):undefined;
     return <Map
       ref={this
@@ -153,7 +151,7 @@ console.log(this.props.layersSettings[0]);
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>        
       </LayersControl>
-      <GeoJsonLayer {...this.props.layersSettings[0].setting}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer minZoom={15} maxCountOfFeatures={500}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
       <GeoJsonLayer maxZoom={12}  path="./res/markazboundary.geojson" />
     </Map>
 //{...this.props.layersSettings["pipe"]}
