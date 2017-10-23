@@ -90,9 +90,9 @@ export default class MapView extends React.Component < MapViewProps, {
       this.props.onPipeClick(properties||{},evt||{});
   }
   render() {     
-    const center = this.props.center || {
-      lat: -72.99132727730068,
-      lng: 46.1774400905128
+    const center =  {
+      lat: 29.264555707767823,
+      lng: 30.858626961708072
       // -72.99132727730068,46.1774400905128 30.805001088273251, 29.355928713231339
       // fayoum
     }
@@ -133,7 +133,7 @@ export default class MapView extends React.Component < MapViewProps, {
       accurecyCircle={false}
       followLocation={false}
       enableKeyNavigation={true}
-      maxZoom={20}
+      maxZoom={22}
       style={mapStyle}
       center={center}
       zoom={this.state.zoom} useFlyTo={true} >
@@ -151,8 +151,9 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer>        
       </LayersControl>
-      <GeoJsonLayer minZoom={15} maxCountOfFeatures={500}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
-      <GeoJsonLayer maxZoom={12}  path="./res/markazboundary.geojson" />
+      <GeoJsonLayer minZoom={16}  maxCountOfFeatures={100}  path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer minZoom={16}  maxCountOfFeatures={100}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+
     </Map>
 //{...this.props.layersSettings["pipe"]}
   }
