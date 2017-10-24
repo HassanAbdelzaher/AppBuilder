@@ -117,7 +117,7 @@ any > {
             </Table></div>
             {/*<Toggle name="navigate"/>*/}
            
-            <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
+            <button style={styles.btn} type="submit" disabled={!this.state.canSubmit} onClick={}>Submit</button>
        
         </Form>
         

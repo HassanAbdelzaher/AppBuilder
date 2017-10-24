@@ -1,10 +1,12 @@
 import * as L from 'leaflet';
 import * as React from 'react';
 
-import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer, GoogleLayer, LayersControl, Map, Marker, MarkerClusterGroup, NewLineControl, Overlay, PolyLine, Popup, TileLayer} from '@mas.eg/mas-leaflet';
+import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer, GoogleLayer, LayersControl, Map, Marker, MarkerClusterGroup, NewLineControl, Overlay, PolyLine, Popup, TileLayer,MapControl} from '@mas.eg/mas-leaflet';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
+import ActionReorder from 'material-ui/svg-icons/action/reorder';
 
 import {FloatingPanel} from '@mas.eg/mas-floating-panel';
-
 var classes=require('./map-icons.css');
 
 //to override build error the name of the file is case sensitive
@@ -90,9 +92,9 @@ export default class MapView extends React.Component < MapViewProps, {
       this.props.onPipeClick(properties||{},evt||{});
   }
   render() {     
-    const center =  {
-      lat: 29.264555707767823,
-      lng: 30.858626961708072
+    const center = this.props.center || {
+      lat: -72.99132727730068,
+      lng: 46.1774400905128
       // -72.99132727730068,46.1774400905128 30.805001088273251, 29.355928713231339
       // fayoum
     }
@@ -133,9 +135,9 @@ export default class MapView extends React.Component < MapViewProps, {
       accurecyCircle={false}
       followLocation={false}
       enableKeyNavigation={true}
-      maxZoom={22}
+      maxZoom={20}
       style={mapStyle}
-      center={center}
+      center={center}    
       zoom={this.state.zoom} useFlyTo={true} >
       <LayersControl position="topright">
       <BaseLayer checked={true} name="openstreet">
@@ -149,12 +151,47 @@ export default class MapView extends React.Component < MapViewProps, {
         </BaseLayer>
         <BaseLayer  name="hybrid">
           <GoogleLayer maptype="HYBRID"/>
-        </BaseLayer>        
+        </BaseLayer>    
+            
       </LayersControl>
-      <GeoJsonLayer minZoom={16}  maxCountOfFeatures={100}  path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
-      <GeoJsonLayer minZoom={16}  maxCountOfFeatures={100}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
-
+      <div style={styles.legend}>
+         <div style={styles.icon}> <ActionHome style={{color:'red'}} /> المحابس </div>
+         <div style={styles.icon}> <ActionDonutLarge style={{color:'green'}} /> المحطات </div>
+         <div style={styles.icon}> <ActionHome  style={{color:'black'}} /> الحدود </div>
+         <div style={styles.icon}> <ActionReorder style={{color:'blue'}} /> الخطوط </div>
+      </div>
+      {/* 
+      0  - pipe
+      1-bounds
+      2- valves
+      3- stations
+       */}
+      <GeoJsonLayer   maxCountOfFeatures={500}  path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer  {...this.props.layersSettings[0].setting}  maxCountOfFeatures={500}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer    maxCountOfFeatures={500}  path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer   maxCountOfFeatures={500}  path="./res/airvalves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer     path="./res/markazboundary.geojson" /> 
     </Map>
 //{...this.props.layersSettings["pipe"]}
+  }
+}
+var styles:React.CSSProperties={
+  legend:{
+    color: 'black',
+    position: 'fixed',
+    top: '20%',
+    right: '10px',
+    width: 100,
+    zIndex: 99999,
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    border:'1px solid black',
+    borderRadius: 5
+
+  },
+  icon:{
+    display:'inline-block',
+    width  :75  
   }
 }

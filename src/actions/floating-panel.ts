@@ -49,7 +49,7 @@ export const setItems = (items:Array<Item>):{type:string,items:Array<Item>} => {
 }
 
 
-export const setMessage = (message:object|string) => {
+export const setMessage = (message:object|string) => {  
   let items=[];
         if(typeof message=="object"){
             items=Object.keys(message).map((k)=>{

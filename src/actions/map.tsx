@@ -196,7 +196,7 @@ export const savingLayerSettings = (settings:any) =>{
           {
             layer:"bounds",setting:{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,features:settings.featuresBo,thread:settings.threadBo}
           },
-          {layer:"v",setting:{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV}},
+          {layer:"valves",setting:{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV}},
           {     
            layer:"stations",setting:{maxZoom:settings.maxZoomS,minZoom:settings.minZoomS,features:settings.featuresS,thread:settings.threadS}
           }

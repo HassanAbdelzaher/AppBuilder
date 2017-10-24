@@ -94,10 +94,10 @@ export class Layout extends React.Component<any, any> {
       <Header title={"Mas"}/>
       <div style={this.contentStyle}>
         <Routes/>
-        {/*<FloatingPanel
+        <FloatingPanel
           style={{
           height: '100%',
-        }}/>*/}
+        }}/>
       </div>
     </div>
   }}
