@@ -64,11 +64,12 @@ any > {
             <TextField style={styles.textField1} required validations={{ isUrl: true}} name="server" floatingLabelText="server" hintText="الخادم"/>
             <TextField style={styles.textField1}  required validations={{ isInt: true}} name="port" floatingLabelText="port" hintText="رقم المنفذ"/>
             </div>
-             <div> <TextField style={styles.textField1}  required name="namespace" floatingLabelText="namespace" hintText="المجموعة"/>
+             <div> 
+             <TextField style={styles.textField1}  required name="namespace" floatingLabelText="namespace" hintText="المجموعة"/>
              <TextField style={styles.textField1}  required name="timeOut" floatingLabelText="TimeOut" hintText="TimeOut FloatingPanel"/></div> 
 
             <div style={{margin:'10px 0 10px 0'}}>
-            <Table name="table" bodyStyle={{}} style={styles.table}>
+            <Table name="table"  style={styles.table} bodyStyle={{ width:"800px",}}>
                 <TableHeader displaySelectAll={false} >
                 <TableRow >
                     <TableHeaderColumn style={styles.tableHeader}>Name</TableHeaderColumn>
@@ -79,7 +80,7 @@ any > {
 
                 </TableRow>
                 </TableHeader>
-                <TableBody displayRowCheckbox={false}>
+                <TableBody displayRowCheckbox={false} style={{backgroundColor: 'antiquewhite'}}>
                 <TableRow>
 
                     <TableRowColumn style={styles.tableRow}> الخطوط</TableRowColumn>
@@ -136,18 +137,20 @@ var styles : React.CSSProperties = {
     },
     form:{
         border: "1px solid",
-        width: 800,
+        maxWidth: 800,
         margin: 'auto',
         padding: 25,
         marginTop: 20,
         backgroundColor: 'aliceblue',
-        borderRadius:10
+        borderRadius:10,
+     
     },
     table:{
         width:"800px",
      },
     tableRow:{
-        textAlign:'-webkit-left'
+        textAlign:'-webkit-left',
+      
     },
     tableHeader:{
         color:'#6b6bef',

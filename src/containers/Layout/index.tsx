@@ -60,7 +60,7 @@ export class Layout extends React.Component<any, any> {
     flexGrow:1000,
     position:'relative',
     height:'100%',
-    overflow:'hidden'/*, this kill google maps
+    overflow:'auto'/*, this kill google maps
     textAlign:'center'*/
    }
   footStyle:React.CSSProperties={
