@@ -35,7 +35,9 @@ export interface State {
   } >
    // layersSettings?:{layerName:{maxZoom:number,minZoom:number,features:number,thread:number}}
 
-  layerSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,features:number,thread:number}}>
+   layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,maxCountOfFeatures:number,thread:number}}>
+
+  
 }
 
 export const setCenter = (center : {
@@ -180,29 +182,21 @@ export const loadDevicesLocations = () => {
   }
 }
 export const savingLayerSettings = (settings:any) =>{
-  console.log(settings);
-  
-//   let obj={
-//     "pipes":{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP},
-//     "stations":{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP},
-//     "v":{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV},
-//     "bounds":{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,features:settings.featuresBo,thread:settings.threadBo}
-// }
   let obj=[
          {
           layer:"pipe",
-          setting:{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,features:settings.featuresP,thread:settings.threadP}
+          setting:{maxZoom:settings.maxZoomP,minZoom:settings.minZoomP,maxCountOfFeatures:settings.featuresP,thread:settings.threadP}
           },
           {
-            layer:"bounds",setting:{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,features:settings.featuresBo,thread:settings.threadBo}
+            layer:"bounds",setting:{maxZoom:settings.maxZoomBo,minZoom:settings.minZoomBo,maxCountOfFeatures:settings.featuresBo,thread:settings.threadBo}
           },
-          {layer:"valves",setting:{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,features:settings.featuresV,thread:settings.threadV}},
+          {layer:"valves",setting:{maxZoom:settings.maxZoomV,minZoom:settings.minZoomV,maxCountOfFeatures:settings.featuresV,thread:settings.threadV}},
           {     
-           layer:"stations",setting:{maxZoom:settings.maxZoomS,minZoom:settings.minZoomS,features:settings.featuresS,thread:settings.threadS}
+           layer:"stations",setting:{maxZoom:settings.maxZoomS,minZoom:settings.minZoomS,maxCountOfFeatures:settings.featuresS,thread:settings.threadS}
           }
   ]
    return {
       type: 'SETLAERSETTINGS',
-      layerSettings:obj 
+      layersSettings:obj 
 }
 }

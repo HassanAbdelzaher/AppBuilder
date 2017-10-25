@@ -27,7 +27,7 @@ export interface MapViewProps {
   onDeviceClick?:(properties,evt)=>void,
  // layersSettings?:{"pipes":{maxZoom:number,minZoom:number,features:number,thread:number},}
 
-  layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,features:number,thread:number}}>
+  layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,maxCountOfFeatures:number,thread:number}}>
 }
 
 const readingIcon=L.divIcon({className:classes.reading});
@@ -126,7 +126,9 @@ export default class MapView extends React.Component < MapViewProps, {
         lng: device.LNG
       }} />
     });  
-   console.log({layersSettings:this.props.layersSettings});
+    console.log(this.props.layersSettings);
+    
+  
    const mapBounds=this.props.bounds && this.props.bounds.length>0?L.latLngBounds(this.props.bounds):undefined;
     return <Map
       ref={this
@@ -166,10 +168,10 @@ export default class MapView extends React.Component < MapViewProps, {
       2- valves
       3- stations
        */}
-      <GeoJsonLayer   maxCountOfFeatures={500}  path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
-      <GeoJsonLayer  {...this.props.layersSettings[0].setting}  maxCountOfFeatures={500}  path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
-      <GeoJsonLayer    maxCountOfFeatures={500}  path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
-      <GeoJsonLayer   maxCountOfFeatures={500}  path="./res/airvalves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer    {...this.props.layersSettings[3].setting}    path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer    {...this.props.layersSettings[0].setting}    path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
+      <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/airvalves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
       <GeoJsonLayer     path="./res/markazboundary.geojson" /> 
     </Map>
 //{...this.props.layersSettings["pipe"]}
