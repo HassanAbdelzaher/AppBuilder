@@ -77,15 +77,44 @@ export class Sidebar extends React.Component < SideProps, {
     });
     return (
       <div style={{overflowX:'hidden',overflowY:'auto'}}>
-      <ActionHome style={styleIcon} onClick={this.handleToggle}/>
+        <ActionHome style={styleIcon} onClick={this.handleToggle}/>
         <Drawer
           style={basic.drawer}
           open={this.props.isOpen}
           /*onRequestChange={(open) => this.setState({open})}*/>
           <div style={styles.AppBar}>
-            <NavigationClose style={styleIcon} onClick={this.handleToggle}/>
-            <div style={styles.title}>ManPoint</div>
-          </div>         
+            <div style={styles.title}>SuezOm</div>
+            <div style={styles.name}>User name
+            </div>
+          </div>
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
+              <span style={styles.label}>
+                مكاني
+              </span>
+            </MenuItem>
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
+              <span style={styles.label}>
+                تسجيل نقطة صيانة
+              </span>
+            </MenuItem>
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
+              <span style={styles.label}>
+                تسجيل قراءة
+              </span>
+            </MenuItem >
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(DRAWING)}}><EditorModeEdit style={styles.icon}/>
+              <span style={styles.label}>
+                تحديث الشبكة
+              </span>
+            </MenuItem>
+          </a>}          
           <Link style={styles.a} to='/messages'>
             <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
               <span style={styles.label}>
@@ -110,7 +139,14 @@ export class Sidebar extends React.Component < SideProps, {
           <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
             <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
               <span style={styles.label}>
-                التوصيلات الخلسة
+               توصيلة غير قانونية
+              </span>
+            </MenuItem >
+          </Link>  
+          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
+              <span style={styles.label}>
+               اعتداء على الشبكة
               </span>
             </MenuItem >
           </Link>          
@@ -134,8 +170,7 @@ var styles : React.CSSProperties = {
     fontSize: '24px',
     fontWeight: 'bold',
     textAlign: 'left',
-    marginLeft: '40px',
-    float:'right'
+    marginLeft: '40px'
   },
   name: {
     color: '#ecf4ff',
@@ -145,12 +180,12 @@ var styles : React.CSSProperties = {
     fontSize: "14px"
   },
   icon: {
+    color: "#777",
     textAlign: 'left',
     margin: '10px',
-    float: 'left',
+    float: 'right',
     height: '26px',
     width: '26',
-    color:'white',
     hover: {
       color: 'red',
       fill: "red",

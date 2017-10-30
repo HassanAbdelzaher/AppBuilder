@@ -91,7 +91,7 @@ export class Layout extends React.Component<any, any> {
           closeOnClick
           pauseOnHover
         />
-      <Header title={"Mas"}/>
+      <Header />
       <div style={this.contentStyle}>
         <Routes/>
         <FloatingPanel

@@ -8,6 +8,8 @@ import Loading from './loading';
 import {State as LoadingState} from '../actions/loading';
 import Map from './map';
 import {State as MapState} from '../actions/map';
+import NewComplaint from './new-complaint';
+import {State as NewComplaintState} from '../actions/new-complaint';
 import Settings from './settings';
 import {State as SettingsState} from '../actions/settings';
 import Sidebar from './sidebar';
@@ -21,7 +23,8 @@ export default combineReducers({
     sidebar:Sidebar,
     map:Map,
     settings:Settings,
-    loading:Loading
+    loading:Loading,
+    newComplaint:NewComplaint
 })
 
 export interface AppState{
@@ -30,7 +33,7 @@ export interface AppState{
     header:HeaderState,
     sidebar:SidebarState,
     map:MapState,
-    settings:SettingsState,
-    
-    loading:LoadingState
+    settings:SettingsState,    
+    loading:LoadingState,
+    newComplaint:NewComplaintState
 }

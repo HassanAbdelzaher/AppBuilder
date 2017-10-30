@@ -1,7 +1,7 @@
 import * as cActions from '../actions/connection-monitor'
 import * as mActions from '../actions/map'
 import * as pActions from '../actions/floating-panel'
-import * as sActions from '../actions/settings'
+import * as sActions from '../actions/settings';
 
 import { Message, WebSocketHandler } from '@mas.eg/mas-sockets/src';
 
