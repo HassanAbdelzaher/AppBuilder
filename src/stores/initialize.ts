@@ -1,4 +1,5 @@
 import * as cActions from '../actions/connection-monitor'
+import * as luActions from '../actions/lu';
 import * as mActions from '../actions/map'
 import * as pActions from '../actions/floating-panel'
 import * as sActions from '../actions/settings';
@@ -9,12 +10,14 @@ export default function (store,client:WebSocketHandler) {
     store.dispatch(cActions.create(client));
     store.dispatch(sActions.loadLocalSettings());
     store.dispatch(sActions.loadServerSettings());
+    store.dispatch(luActions.loadLookup());
     initSocket(client,store.dispatch);
 }
 
 export function initSocket(client:WebSocketHandler,dispatch:(action)=>void){
     client.onConnect(() => {
         dispatch(cActions.connect());
+        dispatch(luActions.loadLookup());        
     });
     client.onDisconnect(() => {
         dispatch(cActions.disConnect());

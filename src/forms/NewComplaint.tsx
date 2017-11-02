@@ -1,15 +1,16 @@
 import * as React from 'react';
+import * as models from '@mas.eg/mas-data-models/server'
 
 import {DropDownMenu, SelectField, TextField, Toggle} from '@mas.eg/mas-forms-fields-material-ui';
-import {Form, FormPropTypes} from '@mas.eg/mas-forms/src';
+import {Field, Form, FormPropTypes} from '@mas.eg/mas-forms/src';
 
 import MenuItem from 'material-ui/MenuItem';
 
 export interface NewComplaintFormProps extends FormPropTypes {
     busy?:boolean,
     error?:string,
-    complaintTypes:Array<{value:string,descr:string}>
-    actionTypes:Array<{value:string,descr:string}>    
+    complaintTypes?:Array<models.ComplaintType>
+    actionTypes?:Array<models.ComplaintType>    
 }
 export class NewComplaintForm extends React.Component < NewComplaintFormProps,
 any > {
@@ -44,7 +45,6 @@ any > {
     }
 
     render() {
-
         const validationErrors = this.state.validationErrors;
         const props = {
             onChange: this.onChange,
@@ -56,6 +56,9 @@ any > {
         };
         let rendred= this.props.busy ?<div>saving....</div>:
                 <Form {...formProps} style={styles.form}>
+                <caption>ID:
+                <TextField style={styles.textField1} name="ID" />
+                </caption>
                 {this.props.error&&<div style={{color:'red',fontSize:16}}>{this.props.error.toString()}</div>}
                     <div style={{}}>
                         <SelectField  hintText="النوع" floatingLabelText="النوع"
@@ -65,8 +68,8 @@ any > {
                             isUrl: true
                            }}
                             name="TYPE">
-                            {this.props.complaintTypes.map((itm,itr)=>{
-                                 return <MenuItem value={itm.value} primaryText={itm.descr} key={"mi"+itr} />                                                            
+                            {this.props.complaintTypes&&this.props.complaintTypes.map((itm,itr)=>{
+                                 return <MenuItem value={itm.ID} primaryText={itm.DESCRIPTION} key={"mi"+itr} />                                                            
                             })}                           
                         </SelectField>
                         
@@ -95,12 +98,15 @@ any > {
                             isUrl: true
                            }}
                             name="ACTION">
-                            {this.props.actionTypes.map((itm,itr)=>{
-                                 return <MenuItem value={itm.value} primaryText={itm.descr} key={"act_mi"+itr} />                                                            
+                            {this.props.actionTypes&&this.props.actionTypes.map((itm,itr)=>{
+                                 return <MenuItem value={itm.ID} primaryText={itm.DESCRIPTION} key={"act_mi"+itr} />                                                            
                             })}                           
                         </SelectField>
                     </div>
-                    
+                    <div>
+                        <TextField style={styles.textField1}  name="LAT" />
+                        <TextField style={styles.textField1} name="LNG" />   
+                    </div>
 
                     <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
 

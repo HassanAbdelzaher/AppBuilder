@@ -6,6 +6,8 @@ import Header from './header';
 import {State as HeaderState} from '../actions/header';
 import Loading from './loading';
 import {State as LoadingState} from '../actions/loading';
+import Lu from './lu';
+import {State as LuState} from '../actions/lu';
 import Map from './map';
 import {State as MapState} from '../actions/map';
 import NewComplaint from './new-complaint';
@@ -24,7 +26,8 @@ export default combineReducers({
     map:Map,
     settings:Settings,
     loading:Loading,
-    newComplaint:NewComplaint
+    newComplaint:NewComplaint,
+    lu:Lu
 })
 
 export interface AppState{
@@ -35,5 +38,6 @@ export interface AppState{
     map:MapState,
     settings:SettingsState,    
     loading:LoadingState,
-    newComplaint:NewComplaintState
+    newComplaint:NewComplaintState,
+    lu:LuState
 }

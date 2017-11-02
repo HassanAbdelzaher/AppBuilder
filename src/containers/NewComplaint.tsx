@@ -11,7 +11,9 @@ const mapStateToProps = (state:AppState, ownProps):NewComplaintFormProps => {
   return {
     initModel:state.newComplaint.model,
     busy:state.newComplaint.busy,
-    error:state.newComplaint.error
+    error:state.newComplaint.error,
+    actionTypes:state.lu.ActionTypes,
+    complaintTypes:state.lu.ComplaintTypes
   }
 }
 

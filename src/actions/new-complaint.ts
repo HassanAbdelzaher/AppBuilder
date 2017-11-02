@@ -3,6 +3,7 @@ export const SAVING_COMPLAINT = "SAVING_COMPLAINT";
 export const COMPLAINT_SAVED = "COMPLAINT_SAVED";
 export const SAVE_COMPLAINT_FAILD = "SAVE_COMPLAINT_FAILD";
 export const SAVE_COMPLAINT_SUCCSSED = "SAVE_COMPLAINT_SUCCSSED";
+export const UPDATE_MODEL_LOCATION = "UPDATE_MODEL_LOCATION";
 
 import * as _ from 'lodash';
 import * as lActions from './loading';
@@ -19,7 +20,8 @@ export enum FORM_STATE{
 }
 export interface Model{
     NAME?:string,
-    LOCATION?:any,
+    LAT?:Number,
+    LNG?:number
     ADDRESS?:string,
     STAMP_DATE?:Date,
     STAMP_USER?:string,
@@ -33,15 +35,21 @@ export interface State {
     state:FORM_STATE,
     busy?:boolean
 }
-
+export const updateInitModelLocation=(location:{lat:number,lng:number})=>{
+    return {
+        type: UPDATE_MODEL_LOCATION,
+        location
+      }
+}
 export const saveComplaint = (complaint) => {
     return function (dispatch, getState, {client}:{client:WebSocketHandler}) {
         dispatch({type:SAVING_COMPLAINT,model:complaint}); 
         let taskId="SaveCompl"+Math.random();
         dispatch(lActions.addTask(taskId));                 
-        client.sendApiRequest("complaints","save",complaint)
-        .then((data)=>{
-            dispatch({type:SAVE_COMPLAINT_SUCCSSED,data});
+        client.sendApiRequest("complaints","add",complaint)
+        .then((response:any)=>{
+            console.dir({response})
+            dispatch({type:SAVE_COMPLAINT_SUCCSSED,model:response.data});
             dispatch(lActions.endTask(taskId));       
         })
         .catch((error)=>{
