@@ -31,8 +31,16 @@ const mapDispatchToProps = (dispatch, ownProps) : MapViewProps=> {
     onPipeClick:(pipe)=>{
       dispatch(fActions.setMessage(pipe));
       dispatch(tActions.showMessage("done"));
-    }
-    ,
+    },
+    onStartDrawing:()=>{
+      dispatch(actions.onStartDrawing())
+
+    },
+    onEndDrawing:(props)=>{
+      
+      dispatch(actions.onEndDrawing(props))
+      
+    },
     onContextmenu:(latlang:L.LatLng,evt:L.LeafletMouseEvent)=>{
       console.log(latlang);
       dispatch(compActions.updateInitModelLocation(latlang)); 

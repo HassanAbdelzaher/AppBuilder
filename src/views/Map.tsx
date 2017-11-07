@@ -1,8 +1,8 @@
 import * as L from 'leaflet';
 import * as React from 'react';
 
-import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer, GoogleLayer, LayersControl, Map, MapControl, Marker, MarkerClusterGroup, NewLineControl, Overlay, PolyLine, Popup, TileLayer} from '@mas.eg/mas-leaflet';
-
+import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer,EditControl,Circle, GoogleLayer, LayersControl, Map, MapControl, Marker, MarkerClusterGroup, 
+  NewLineControl,NewMarkerControl,NewPolygonControl,NewRectangleControl,NewCircleControl, Overlay, PolyLine, Popup, TileLayer} from '@mas.eg/mas-leaflet';
 import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionReorder from 'material-ui/svg-icons/action/reorder';
@@ -26,6 +26,8 @@ export interface MapViewProps {
   bounds?:[number,number][],
   onPipeClick?: (properties,evt) => void,
   onDeviceClick?:(properties,evt)=>void,
+  onStartDrawing?:()=>void,
+  onEndDrawing?:(event)=>void,
   onContextmenu?:(latlng:L.LatLng,evt:L.LeafletMouseEvent)=>void,
  // layersSettings?:{"pipes":{maxZoom:number,minZoom:number,features:number,thread:number},}
 
@@ -93,7 +95,20 @@ export default class MapView extends React.Component < MapViewProps, {
     if(this.props.onPipeClick)
       this.props.onPipeClick(properties||{},evt||{});
   }
-  render() {     
+ 
+  Drawing(){
+    if(this.props.onStartDrawing){
+      this.props.onStartDrawing()
+    }
+    
+  }
+  endDrawing(event){
+    if(this.props.onEndDrawing){
+      this.props.onEndDrawing(event)
+    }
+    
+  }
+ render() {     
     const center = this.props.center || {
       lat: -72.99132727730068,
       lng: 46.1774400905128
@@ -161,7 +176,14 @@ export default class MapView extends React.Component < MapViewProps, {
         <BaseLayer  name="hybrid">
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer> 
-      </LayersControl>      
+      </LayersControl>
+
+      <NewPolygonControl    position={"topleft"}  title="create new Polygon"    html="▰" />
+      <NewMarkerControl     position={"topleft"}  title="create new marker"     html="🖈" />
+      <NewRectangleControl  position={"topleft"}  title="create new reactangle" html="⬛" />
+      <NewLineControl       position={"topleft"}  title="create new line"       html="/\/" />
+      <NewCircleControl     onStartDrawing={this.Drawing.bind(this)} onEndDrawing={this.endDrawing.bind(this)} position={"topleft"}  title="create new circle"  html="⬤" />    
+
       <GeoJsonLayer    {...this.props.layersSettings[3].setting}    path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
       <GeoJsonLayer    {...this.props.layersSettings[0].setting}    path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
       <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
