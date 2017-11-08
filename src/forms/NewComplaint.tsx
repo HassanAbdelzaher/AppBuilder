@@ -12,8 +12,14 @@ var destinationType; // sets the format of returned value
 var src, src2
 declare let navigator: any;
 declare let Camera: any;
+<<<<<<< HEAD
 declare let device: any;
 let cordova;
+=======
+
+ let device;
+
+>>>>>>> fadb995a6994ae074819fc5c78063051f5667df0
 export interface NewComplaintFormProps extends FormPropTypes {
     busy?: boolean,
     error?: string,
