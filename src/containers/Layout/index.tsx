@@ -16,7 +16,7 @@ import Routes from '../../routes';
 import SettingsView from '../SettingsPage';
 import SideBar from '../sidebar'
 
-toast("welcom","error");
+//toast("welcom","error");
 export class Layout extends React.Component<any, any> {
   constructor() {
     super();
@@ -84,7 +84,7 @@ export class Layout extends React.Component<any, any> {
     return <div style={this.layoutStyle}>
       <ConnectionMonitor/>
       <Loading/>
-      <ToastContainer 
+      {/* <ToastContainer 
           position="bottom-right"
           type="default"
           autoClose={5000}
@@ -92,7 +92,7 @@ export class Layout extends React.Component<any, any> {
           newestOnTop={false}
           closeOnClick
           pauseOnHover
-        />
+        /> */}
       <Header />
       <div style={this.contentStyle}>
         <Routes/>
