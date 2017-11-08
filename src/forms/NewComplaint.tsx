@@ -38,10 +38,6 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
     componentDidMount() {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            // pictureSource=navigator.camera.PictureSourceType;
-            // destinationType=navigator.camera.DestinationType;
-            // pictureSource=Camera.PictureSourceType.SAVEDPHOTOALBUM;
-            // destinationType=Camera.DestinationType.FILE_URI;
         }
     }
     onPhotoDataSuccess(imageData) {
@@ -169,7 +165,7 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
                 <button onClick={this.capturePhoto.bind(this)}>Capture Photo</button>
                 <button onClick={this.getPhoto.bind(this)}>get Photo></button>
 
-                <img style={{ display: 'block', border: '2px solid black', width: 150, height: 100 }} ref='getPhoto' id="getPhoto"   ></img>
+                <img style={{ display: 'block', border: '2px solid black', width: 250, height: 150 }} ref='getPhoto' id="getPhoto"   ></img>
                 <img style={{ display: 'block', border: '2px solid black', width: 260, height: 150 }} ref="takePhoto" id="takePhoto"  />
             </Form>
 
