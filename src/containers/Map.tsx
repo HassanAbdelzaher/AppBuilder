@@ -1,5 +1,8 @@
+import * as L from 'leaflet'
 import * as actions from '../actions/map';
+import * as compActions from '../actions/new-complaint';
 import * as fActions from '../actions/floating-panel';
+import * as rout from '../actions/routing';
 import * as tActions from '../actions/toastr';
 
 import Map, { MapViewProps } from '../views/Map'
@@ -28,6 +31,22 @@ const mapDispatchToProps = (dispatch, ownProps) : MapViewProps=> {
     onPipeClick:(pipe)=>{
       dispatch(fActions.setMessage(pipe));
       dispatch(tActions.showMessage("done"));
+    },
+    onStartDrawing:()=>{
+      dispatch(actions.onStartDrawing())
+
+    },
+    onEndDrawing:(props)=>{
+      
+      dispatch(actions.onEndDrawing(props))
+      
+    },
+    onContextmenu:(latlang:L.LatLng,evt:L.LeafletMouseEvent)=>{
+      console.log(latlang);
+      dispatch(compActions.updateInitModelLocation(latlang)); 
+      setTimeout(()=>{
+        dispatch(rout.routTo("new"));        
+      },1)     
     }
   }
 }

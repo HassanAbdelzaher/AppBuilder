@@ -1,12 +1,13 @@
 import * as L from 'leaflet';
 import * as React from 'react';
 
-import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer, GoogleLayer, LayersControl, Map, Marker, MarkerClusterGroup, NewLineControl, Overlay, PolyLine, Popup, TileLayer,MapControl} from '@mas.eg/mas-leaflet';
-import ActionHome from 'material-ui/svg-icons/action/home';
+import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer,EditControl,Circle, GoogleLayer, LayersControl, Map, MapControl, Marker, MarkerClusterGroup, 
+  NewLineControl,NewMarkerControl,NewPolygonControl,NewRectangleControl,NewCircleControl, Overlay, PolyLine, Popup, TileLayer} from '@mas.eg/mas-leaflet';
 import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionReorder from 'material-ui/svg-icons/action/reorder';
-
 import {FloatingPanel} from '@mas.eg/mas-floating-panel';
+
 var classes=require('./map-icons.css');
 
 //to override build error the name of the file is case sensitive
@@ -25,6 +26,9 @@ export interface MapViewProps {
   bounds?:[number,number][],
   onPipeClick?: (properties,evt) => void,
   onDeviceClick?:(properties,evt)=>void,
+  onStartDrawing?:()=>void,
+  onEndDrawing?:(event)=>void,
+  onContextmenu?:(latlng:L.LatLng,evt:L.LeafletMouseEvent)=>void,
  // layersSettings?:{"pipes":{maxZoom:number,minZoom:number,features:number,thread:number},}
 
   layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,maxCountOfFeatures:number,thread:number}}>
@@ -91,14 +95,26 @@ export default class MapView extends React.Component < MapViewProps, {
     if(this.props.onPipeClick)
       this.props.onPipeClick(properties||{},evt||{});
   }
-  render() {     
+ 
+  Drawing(){
+    if(this.props.onStartDrawing){
+      this.props.onStartDrawing()
+    }
+    
+  }
+  endDrawing(event){
+    if(this.props.onEndDrawing){
+      this.props.onEndDrawing(event)
+    }
+    
+  }
+ render() {     
     const center = this.props.center || {
       lat: -72.99132727730068,
       lng: 46.1774400905128
       // -72.99132727730068,46.1774400905128 30.805001088273251, 29.355928713231339
       // fayoum
     }
-    console.log(this.props.layersSettings[0]);
     console.log('rendering map');
     const mapStyle = {
       width: '100%',
@@ -130,7 +146,7 @@ export default class MapView extends React.Component < MapViewProps, {
     
   
    const mapBounds=this.props.bounds && this.props.bounds.length>0?L.latLngBounds(this.props.bounds):undefined;
-    return <Map
+    return <Map editable={true}
       ref={this
       .bindMap
       .bind(this)}
@@ -139,7 +155,13 @@ export default class MapView extends React.Component < MapViewProps, {
       enableKeyNavigation={true}
       maxZoom={20}
       style={mapStyle}
-      center={center}    
+      center={center}  
+      onContextmenu={(evt:L.LeafletMouseEvent)=>{
+        console.dir(evt.latlng);
+        if(this.props.onContextmenu){
+          this.props.onContextmenu(evt.latlng,evt)
+        }
+      }}  
       zoom={this.state.zoom} useFlyTo={true} >
       <LayersControl position="topright">
       <BaseLayer checked={true} name="openstreet">
@@ -153,21 +175,15 @@ export default class MapView extends React.Component < MapViewProps, {
         </BaseLayer>
         <BaseLayer  name="hybrid">
           <GoogleLayer maptype="HYBRID"/>
-        </BaseLayer>    
-            
+        </BaseLayer> 
       </LayersControl>
-      <div style={styles.legend}>
-         <div style={styles.icon}> <ActionHome style={{color:'red'}} /> المحابس </div>
-         <div style={styles.icon}> <ActionDonutLarge style={{color:'green'}} /> المحطات </div>
-         <div style={styles.icon}> <ActionHome  style={{color:'black'}} /> الحدود </div>
-         <div style={styles.icon}> <ActionReorder style={{color:'blue'}} /> الخطوط </div>
-      </div>
-      {/* 
-      0  - pipe
-      1-bounds
-      2- valves
-      3- stations
-       */}
+
+      <NewPolygonControl    position={"topleft"}  title="create new Polygon"    html="▰" />
+      <NewMarkerControl     position={"topleft"}  title="create new marker"     html="🖈" />
+      <NewRectangleControl  position={"topleft"}  title="create new reactangle" html="⬛" />
+      <NewLineControl       position={"topleft"}  title="create new line"       html="/\/" />
+      <NewCircleControl     onStartDrawing={this.Drawing.bind(this)} onEndDrawing={this.endDrawing.bind(this)} position={"topleft"}  title="create new circle"  html="⬤" />    
+
       <GeoJsonLayer    {...this.props.layersSettings[3].setting}    path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
       <GeoJsonLayer    {...this.props.layersSettings[0].setting}    path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
       <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 

@@ -8,6 +8,8 @@ export const SET_MAP_BOUNDS = "SET_MAP_BOUNDS";
 export const SET_READINGS_LOCATIONS = "SET_READINGS_LOCATIONS";
 export const SHOW_FETURE_INFO ="SHOW_FETURE_INFO";
 export const SETLAERSETTINGS="SETLAERSETTINGS"
+export const ON_START_DRAWING = "ON_START_DRAWING";
+export const ON_END_DRAWING = "ON_END_DRAWING";
 import * as React from 'react';
 import * as fAction from '../actions/floating-panel';
 import * as hist from 'history';
@@ -32,11 +34,12 @@ export interface State {
   readings?:Array < {
     LAT: number,
     LNG: number
-  } >
+  }
+   >
    // layersSettings?:{layerName:{maxZoom:number,minZoom:number,features:number,thread:number}}
 
    layersSettings?:Array<{layer:string,setting:{maxZoom:number,minZoom:number,maxCountOfFeatures:number,thread:number}}>
-
+  endDrawingData?:object
   
 }
 
@@ -198,5 +201,17 @@ export const savingLayerSettings = (settings:any) =>{
    return {
       type: 'SETLAERSETTINGS',
       layersSettings:obj 
+}
+}
+export const onStartDrawing = ()=>{
+  console.log("start");  
+  return {
+    type: 'ON_START_DRAWING',
+}
+}
+export const onEndDrawing = ( data :object)=>{
+  return {
+    type: 'ON_END_DRAWING',
+    endDrawingData:data
 }
 }

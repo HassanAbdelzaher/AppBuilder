@@ -1,7 +1,8 @@
 {
-  "name": "om-tv",
-  "version": "1.0.0",
-  "description": "Operation and amntinace monitor on tv",
+  "name": "man-point",
+  "version": "1.0.1",
+  "title": "MasPoint",
+  "description": "Operation and amntinace monitor on mobile",
   "scripts": {
     "prepublish": "npm run build",
     "dev": "set NODE_ENV=devlopment& webpack-dev-server --port 3000 --config webpack.config.js --hot",
@@ -64,9 +65,10 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "@mas.eg/mas-data-models": "^1.1.0",
     "@mas.eg/mas-floating-panel": "^1.2.2",
     "@mas.eg/mas-forms": "^1.0.0",
-    "@mas.eg/mas-forms-fields-material-ui": "^1.0.6",
+    "@mas.eg/mas-forms-fields-material-ui": "^1.0.8",
     "@mas.eg/mas-leaflet": "^1.5.1",
     "@mas.eg/mas-loading": "^1.0.0",
     "@mas.eg/mas-sockets": "^1.2.2",

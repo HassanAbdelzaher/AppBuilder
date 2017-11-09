@@ -3,12 +3,12 @@ import * as React from 'react';
 import {AppBar} from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
+import {Link} from 'react-router-dom';
 import MenuItem from 'material-ui/MenuItem';
 import Menue from '../Menu/index'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import RaisedButton from 'material-ui/RaisedButton';
 import SideBar from '../../containers/Sidebar'
-import {Link} from 'react-router-dom';
 
 const defaulStyle={
   height:50
@@ -16,6 +16,7 @@ const defaulStyle={
 export interface HeaderProps {
   heigth?:number;
   title?:string,
+  version?:string
 }
 export interface HeaderState {
   /* empty */
@@ -38,7 +39,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <AppBar style={{height:this.props.heigth,textAlign:'center'}}
           title={this.props.title}
-          iconElementRight={<Link style={styles.link} to='/map'>Back</Link>}
+          iconElementRight={<span>{this.props.version||'0.0.0'}</span>}
           iconElementLeft={<SideBar/>}
 
             />     );

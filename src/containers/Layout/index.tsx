@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as luActions from '../../actions/lu';
 
 import {Redirect, Route, Switch} from 'react-router-dom';
 import { ToastContainer, toast } from '@mas.eg/mas-toastr';
@@ -15,7 +16,7 @@ import Routes from '../../routes';
 import SettingsView from '../SettingsPage';
 import SideBar from '../sidebar'
 
-toast("welcom","error");
+//toast("welcom","error");
 export class Layout extends React.Component<any, any> {
   constructor() {
     super();
@@ -31,6 +32,7 @@ export class Layout extends React.Component<any, any> {
   }
   componentDidMount(){
       window.onresize = this.onWindowResized;
+      //LOADING application lookups
   }
   private onWindowResized (event:UIEvent):void
   {
@@ -82,7 +84,7 @@ export class Layout extends React.Component<any, any> {
     return <div style={this.layoutStyle}>
       <ConnectionMonitor/>
       <Loading/>
-      <ToastContainer 
+      {/* <ToastContainer 
           position="bottom-right"
           type="default"
           autoClose={5000}
@@ -90,8 +92,8 @@ export class Layout extends React.Component<any, any> {
           newestOnTop={false}
           closeOnClick
           pauseOnHover
-        />
-      <Header title={"Mas"}/>
+        /> */}
+      <Header />
       <div style={this.contentStyle}>
         <Routes/>
         <FloatingPanel
