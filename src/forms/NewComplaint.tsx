@@ -12,9 +12,14 @@ var destinationType; // sets the format of returned value
 var src, src2
 declare let navigator: any;
 declare let Camera: any;
+<<<<<<< HEAD
+declare let device: any;
+let cordova;
+=======
 
  let device;
 
+>>>>>>> fadb995a6994ae074819fc5c78063051f5667df0
 export interface NewComplaintFormProps extends FormPropTypes {
     busy?: boolean,
     error?: string,
@@ -36,62 +41,47 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
             .bind(this);
     }
 
-     componentDidMount() {
+    componentDidMount() {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            alert(device.model)
-            pictureSource = Camera.PictureSourceType.SAVEDPHOTOALBUM;
-            destinationType = Camera.DestinationType.FILE_URI;
         }
     }
-    cameraCallback(imageData) {
-        var image = document.getElementById('myImage');
-        src = "data:image/jpeg;base64," + imageData;
-    }
-
     onPhotoDataSuccess(imageData) {
-        var smallImage = document.getElementById('smallImage');
-        smallImage.style.display = 'block';
-        smallImage.style.backgroundColor = 'red'
-        src = "data:image/jpeg;base64," + imageData;
+        var takePhoto = document.getElementById('takePhoto');
+        takePhoto.style.backgroundColor = 'green';
+        document.getElementById('takePhoto').
+        setAttribute( 'src', "data:image/jpeg;base64," + imageData ); 
     }
     capturePhoto() {
-        alert(navigator.device);
         navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA,
+            destinationType: Camera.DestinationType.DATA_URL,
+            //sourceType: Camera.PictureSourceType.CAMERA,
             encodingType: Camera.EncodingType.PNG,
             allowEdit: true,
             targetWidth: 200, targetHeight: 200
         }
         );
-
     }
-    capturePhotoEdit() {
-           navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
-            quality: 20, allowEdit: true,
-            destinationType: destinationType.DATA_URL
-        });
-    }
+    // capturePhotoEdit() {
+    //     navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
+    //         quality: 20, allowEdit: true,
+    //         destinationType: destinationType.DATA_URL
+    //     });
+    // }
     onPhotoURISuccess(imageURI) {
-        var smallImage = document.getElementById('smallImage');
-        var largeImage = document.getElementById('largeImage');
-        smallImage.style.display = 'block';
-        largeImage.style.display = 'block';
-        smallImage.style.background = 'red';
-        //smallImage.style.backgroundImage="url('imageURI')"
-        src2 = "data:image/jpeg;base64," + imageURI;
-        alert(src2 + 'welcom')
+        alert(imageURI)
+        var getPhoto = document.getElementById('getPhoto');
+        getPhoto.style.background = 'red';
+        document.getElementById('getPhoto').
+        setAttribute( 'src', imageURI ); 
     }
     getPhoto() {
-        alert(pictureSource)
-        navigator.camera.getPicture(this.onPhotoURISuccess, this.onFail, {
-            quality: 50,
-            destinationType: destinationType,
-            sourceType: pictureSource
-        });
-    }
+       navigator.camera.getPicture(this.onPhotoURISuccess, this.onFail, { quality: 50, 
+         destinationType: Camera.DestinationType.FILE_URI,
+         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+         });
+     }
     onFail(message) {
         alert('Failed because: ' + message);
     }
@@ -176,14 +166,13 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
                     <TextField style={styles.textField1} name="LAT" />
                     <TextField style={styles.textField1} name="LNG" />
                 </div>
-                <div>
-                    <button onClick={this.capturePhoto.bind(this)}>Capture Photo</button>
-                    <button onClick={this.getPhoto.bind(this)}>get Photo</button>
 
-                    <img style={{ display: 'none', border: '2px solid black', width: 60, height: 60 }} ref='smallImage' src={src2}  ></img>
-                    <img style={{ display: 'none', border: '2px solid black', width: 60, height: 60 }} ref="largeImage" id="largeImage" src={src} />
+                <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
+                <button onClick={this.capturePhoto.bind(this)}>Capture Photo</button>
+                <button onClick={this.getPhoto.bind(this)}>get Photo></button>
 
-                </div>
+                <img style={{ display: 'block', border: '2px solid black', width: 250, height: 150 }} ref='getPhoto' id="getPhoto"   ></img>
+                <img style={{ display: 'block', border: '2px solid black', width: 260, height: 150 }} ref="takePhoto" id="takePhoto"  />
             </Form>
 
 
