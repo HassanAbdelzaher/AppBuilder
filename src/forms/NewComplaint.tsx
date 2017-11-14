@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as models from '@mas.eg/mas-data-models/server'
-import {onFail,onPhotoDataSuccess,capturePhoto,getPhoto} from './camera'
+import {onFail,onPhotoDataSuccess,capturePhoto,getPhoto,captureAudio} from './camera'
 import { DropDownMenu, SelectField, TextField, Toggle } from '@mas.eg/mas-forms-fields-material-ui';
 import { Field, Form, FormPropTypes } from '@mas.eg/mas-forms/src';
 import CameraMobile from './cameramobile'
 import MenuItem from 'material-ui/MenuItem';
+import * as $ from 'jquery'
 var x;
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value 
@@ -13,8 +14,8 @@ declare let navigator: any;
 declare let Camera: any;
 declare let device: any;
 let cordova;
-var pick_photo:HTMLElement;
-var getPhotoFMobile:HTMLElement;
+var pick_photo
+var getPhotoFMobile
 
 export interface NewComplaintFormProps extends FormPropTypes {
     busy?: boolean,
@@ -38,14 +39,19 @@ any> {
         this.capturePhotoFMobile=this
             .capturePhotoFMobile.bind(this)
     }
-    capturePhotoFMobile() {
-       pick_photo=capturePhoto()
-        alert(pick_photo)
-    }   
-    getPhotoFMobile() {
-      getPhotoFMobile=getPhoto();
-       alert(getPhotoFMobile)
-       
+ capturePhotoFMobile() {
+       pick_photo=  capturePhoto()
+       var capture = document.getElementById("capture")
+       capture = pick_photo
+    }  
+    
+ captureAudio() {
+        var record = captureAudio()
+    } 
+  getPhotoFMobile() {
+      getPhotoFMobile=  getPhoto();   
+    //   var get  =document.getElementById("get") 
+    //   get = getPhotoFMobile
     }
     validateForm(values) {
         if (!values.server) {
@@ -64,7 +70,9 @@ any> {
             this.props.onChange(modelmade, isChanged);
         return modelmade
     }
-
+    
+    
+   
     render() {
         const validationErrors = this.state.validationErrors;
         const props = {
@@ -130,12 +138,14 @@ any> {
                 </div>
                 <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
                 <button onClick={this.capturePhotoFMobile.bind(this)}>capturePhoto</button>
+                <button onClick={this.captureAudio.bind(this)}>captureaudio</button>
                 <button onClick={this.getPhotoFMobile.bind(this)}>get Photo></button>
-                   <div>{this.state.pick_photo}</div>
-                   <div>{this.state.getPhotoFMobile}</div>
+                <img style={{ display: 'block', border: '2px solid black', width: 250, height: 150 }} ref="takePhoto" id="takePhoto"  ></img>
+
+                   <div id="capture"></div>
+                   <div id="get">{getPhotoFMobile}</div>
             </Form>
             <div>
-               {/* <CameraMobile/> */}
 
             </div>
             </div>
