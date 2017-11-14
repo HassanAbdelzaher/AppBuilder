@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as models from '@mas.eg/mas-data-models/server'
-var Webcam = require('react-webcam')
-
+import {onFail,onPhotoDataSuccess,capturePhoto,getPhoto} from './camera'
 import { DropDownMenu, SelectField, TextField, Toggle } from '@mas.eg/mas-forms-fields-material-ui';
 import { Field, Form, FormPropTypes } from '@mas.eg/mas-forms/src';
-
+import CameraMobile from './cameramobile'
 import MenuItem from 'material-ui/MenuItem';
 var x;
 var pictureSource;   // picture source
@@ -12,14 +11,11 @@ var destinationType; // sets the format of returned value
 var src, src2
 declare let navigator: any;
 declare let Camera: any;
-<<<<<<< HEAD
 declare let device: any;
 let cordova;
-=======
+var pick_photo:HTMLElement;
+var getPhotoFMobile:HTMLElement;
 
- let device;
-
->>>>>>> fadb995a6994ae074819fc5c78063051f5667df0
 export interface NewComplaintFormProps extends FormPropTypes {
     busy?: boolean,
     error?: string,
@@ -27,11 +23,11 @@ export interface NewComplaintFormProps extends FormPropTypes {
     actionTypes?: Array<models.ComplaintType>
 }
 export class NewComplaintForm extends React.Component<NewComplaintFormProps,
-    any> {
+any> {
     constructor() {
         super();
         this.state = {
-            canSubmit: true
+            canSubmit: true,
         }
         this.validateForm = this
             .validateForm
@@ -39,51 +35,17 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
         this.onChange = this
             .onChange
             .bind(this);
+        this.capturePhotoFMobile=this
+            .capturePhotoFMobile.bind(this)
     }
-
-    componentDidMount() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-        }
-    }
-    onPhotoDataSuccess(imageData) {
-        var takePhoto = document.getElementById('takePhoto');
-        takePhoto.style.backgroundColor = 'green';
-        document.getElementById('takePhoto').
-        setAttribute( 'src', "data:image/jpeg;base64," + imageData ); 
-    }
-    capturePhoto() {
-        navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            //sourceType: Camera.PictureSourceType.CAMERA,
-            encodingType: Camera.EncodingType.PNG,
-            allowEdit: true,
-            targetWidth: 200, targetHeight: 200
-        }
-        );
-    }
-    // capturePhotoEdit() {
-    //     navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
-    //         quality: 20, allowEdit: true,
-    //         destinationType: destinationType.DATA_URL
-    //     });
-    // }
-    onPhotoURISuccess(imageURI) {
-        alert(imageURI)
-        var getPhoto = document.getElementById('getPhoto');
-        getPhoto.style.background = 'red';
-        document.getElementById('getPhoto').
-        setAttribute( 'src', imageURI ); 
-    }
-    getPhoto() {
-       navigator.camera.getPicture(this.onPhotoURISuccess, this.onFail, { quality: 50, 
-         destinationType: Camera.DestinationType.FILE_URI,
-         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
-         });
-     }
-    onFail(message) {
-        alert('Failed because: ' + message);
+    capturePhotoFMobile() {
+       pick_photo=capturePhoto()
+        alert(pick_photo)
+    }   
+    getPhotoFMobile() {
+      getPhotoFMobile=getPhoto();
+       alert(getPhotoFMobile)
+       
     }
     validateForm(values) {
         if (!values.server) {
@@ -114,7 +76,7 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
             ...props
         };
         let rendred = this.props.busy ? <div>saving....</div> :
-            <Form {...formProps} style={styles.form}>
+            <div><Form {...formProps} style={styles.form}>
                 <caption>ID:
                 <TextField style={styles.textField1} name="ID" />
                 </caption>
@@ -166,15 +128,18 @@ export class NewComplaintForm extends React.Component<NewComplaintFormProps,
                     <TextField style={styles.textField1} name="LAT" />
                     <TextField style={styles.textField1} name="LNG" />
                 </div>
-
                 <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
-                <button onClick={this.capturePhoto.bind(this)}>Capture Photo</button>
-                <button onClick={this.getPhoto.bind(this)}>get Photo></button>
-
-                <img style={{ display: 'block', border: '2px solid black', width: 250, height: 150 }} ref='getPhoto' id="getPhoto"   ></img>
-                <img style={{ display: 'block', border: '2px solid black', width: 260, height: 150 }} ref="takePhoto" id="takePhoto"  />
+                <button onClick={this.capturePhotoFMobile.bind(this)}>capturePhoto</button>
+                <button onClick={this.getPhotoFMobile.bind(this)}>get Photo></button>
+                   <div>{this.state.pick_photo}</div>
+                   <div>{this.state.getPhotoFMobile}</div>
             </Form>
+            <div>
+               {/* <CameraMobile/> */}
 
+            </div>
+            </div>
+          
 
         return rendred;
 

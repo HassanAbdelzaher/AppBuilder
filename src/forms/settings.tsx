@@ -17,12 +17,7 @@ any > {
     constructor() {
         super();
         this.state = {canSubmit: true ,
-        arr:[
-             {id:"الخطوط",value:{maxZoomL:"",minZoomL:"",featuresL:"",threadL:""}},
-             {id:"المحابس",value:{maxZoomP:"",minZoomP:"",featuresP:"",threadP:""}},
-             {id:"الحدود",value:{maxZoomPO:"",minZoomPO:"",featuresPO:"",threadPO:""}},
-             {id:"المحطات",value:{maxZoomS:"",minZoomS:"",featuresS:"",threadS:""}}
-            ]
+       
             
          }
         this.validateForm = this .validateForm.bind(this);
