@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as models from '@mas.eg/mas-data-models/server'
-import {onFail,onPhotoDataSuccess,capturePhoto,getPhoto,captureAudio} from './camera'
+import {captureAudio,captureImage,captureVideo} from './camera'
 import { DropDownMenu, SelectField, TextField, Toggle } from '@mas.eg/mas-forms-fields-material-ui';
 import { Field, Form, FormPropTypes } from '@mas.eg/mas-forms/src';
 import CameraMobile from './cameramobile'
@@ -29,6 +29,10 @@ any> {
         super();
         this.state = {
             canSubmit: true,
+            audioPath:"" || {},
+            imagePath:"" || {},
+            videoPath:"" ||{}
+
         }
         this.validateForm = this
             .validateForm
@@ -36,23 +40,30 @@ any> {
         this.onChange = this
             .onChange
             .bind(this);
-        this.capturePhotoFMobile=this
-            .capturePhotoFMobile.bind(this)
     }
- capturePhotoFMobile() {
-       pick_photo=  capturePhoto()
-       var capture = document.getElementById("capture")
-       capture = pick_photo
+    captureImage() {
+        var data=captureImage(function  onsucess(result){
+            alert(result)
+        })
+        this.setState({imagePath : data}) 
+        alert("img")
     }  
     
- captureAudio() {
-        var record = captureAudio()
-    } 
-  getPhotoFMobile() {
-      getPhotoFMobile=  getPhoto();   
-    //   var get  =document.getElementById("get") 
-    //   get = getPhotoFMobile
-    }
+    captureVideo() {
+        var data=captureVideo(function  onsucess(result){
+            alert(result)  
+        })
+        this.setState({videoPath : data})
+        alert("result")
+       }
+    captureAudio() {
+        var data=captureAudio(function  onsucess(result){
+            alert(result)
+        })
+        this.setState({audioPath : data})
+        alert("resulta")
+     };
+     
     validateForm(values) {
         if (!values.server) {
             this.setState({
@@ -70,9 +81,6 @@ any> {
             this.props.onChange(modelmade, isChanged);
         return modelmade
     }
-    
-    
-   
     render() {
         const validationErrors = this.state.validationErrors;
         const props = {
@@ -137,13 +145,12 @@ any> {
                     <TextField style={styles.textField1} name="LNG" />
                 </div>
                 <button style={styles.btn} type="submit" disabled={!this.state.canSubmit}>Submit</button>
-                <button onClick={this.capturePhotoFMobile.bind(this)}>capturePhoto</button>
+                <button onClick={this.captureImage.bind(this)}>captureImage</button>
+                <button onClick={this.captureVideo.bind(this)}>captureVideo</button>
                 <button onClick={this.captureAudio.bind(this)}>captureaudio</button>
-                <button onClick={this.getPhotoFMobile.bind(this)}>get Photo></button>
-                <img style={{ display: 'block', border: '2px solid black', width: 250, height: 150 }} ref="takePhoto" id="takePhoto"  ></img>
-
-                   <div id="capture"></div>
-                   <div id="get">{getPhotoFMobile}</div>
+                <TextField style={{display:'none'}} value={this.state.imagePath} name="imagePath" />
+                <TextField style={{display:'none'}} value={this.state.audioPath} name="audioPath" />
+                <TextField style={{display:'none'}} value={this.state.videoPath} name="videoPath" />
             </Form>
             <div>
 
