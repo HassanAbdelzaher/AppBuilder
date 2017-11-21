@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as luActions from '../../actions/lu';
-
+import * as sAction from '../../actions/sidebar'
 import {Menu, Segment, Sidebar} from 'semantic-ui-react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {ToastContainer, toast} from '@mas.eg/mas-toastr';
@@ -43,7 +43,7 @@ any > {
     let height = window.innerHeight - 81;
     this.setState({height})
   }
-
+ 
   render() {
     const children = React
       .Children
@@ -53,7 +53,7 @@ any > {
           : null
       });
     return <Sidebar.Pushable>
-      {< SideBar />}
+      {< SideBar  />}
       <Sidebar.Pusher
         style={{
         width: '100%',
