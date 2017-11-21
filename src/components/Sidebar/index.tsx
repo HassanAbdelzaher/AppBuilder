@@ -33,31 +33,33 @@ export class Sidebar2 extends React.Component < SideProps, {
   constructor(props : SideProps) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: props.isOpen,
         };
     this.handleClick=this.handleClick.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
   }
-
   handleToggle(){
     if(this.props.toggle)
         this.props.toggle();
+
+        //this.setState({visible:!this.state.visible})
   };
    
   handleClick (action:string) {
     //this.setState({open: false});
     if(this.props.onClick)
         this.props.onClick(action);
-  }
+  }  
 
   render() {
+  console.log(this.state.isOpen);
     var styleIcon = Object.assign({}, {marginTop: 10}); // custom color for Action Home icon
     //custom color for MenuItem
     var styleMenuItem = Object.assign({}, {
       borderBottom: '1px solid #c9d2e0',
       padding: '5px'
     });
-    return (
+    return (<div>
           <Sidebar as={Menu} animation='overlay' visible={this.state.isOpen} icon='labeled' vertical inverted>
             <Menu.Item name='home'>
               <Icon name='home' />
@@ -71,7 +73,9 @@ export class Sidebar2 extends React.Component < SideProps, {
               <Icon name='camera' />
               Channels
             </Menu.Item>
-          </Sidebar>          
+           
+          </Sidebar>  
+          </div>        
     )
   }
 }

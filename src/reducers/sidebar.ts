@@ -1,6 +1,6 @@
 import * as actions from '../actions/sidebar'
 
-const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:false,items:[] }, action) => {
+const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:true,items:[] }, action) => {
     switch (action.type) {
         case actions.OPEN_SIDBARE:
             return {
@@ -13,6 +13,7 @@ const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:false,ite
                 isOpen: false
             };
             case actions.TOGGLE_SIDBARE:
+            console.log('TOGGLE_SIDBARE:'+state.isOpen)
             return {
                 ...state,
                 isOpen: !state.isOpen
