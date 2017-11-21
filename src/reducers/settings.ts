@@ -14,11 +14,18 @@ layerSettings:[]}, action): actions.State => {
                 ...action.settings
             };
         case actions.SETTINGS_SAVED:
-        return {
-            
+        return {            
             ...state,
             ...action.settings
         };
+        case actions.SWITCH_MODE:
+        if(!action.mode)
+            return state;
+        else
+            return {            
+                ...state,
+                mode:action.mode
+            };
         default: return state
     }
 }

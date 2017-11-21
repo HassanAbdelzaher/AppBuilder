@@ -29,6 +29,12 @@
   dependencies:
     form-data-to-object "^0.2.0"
 
+"@mas.eg/mas-forms@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@mas.eg/mas-forms/-/mas-forms-3.1.2.tgz#f9dcda5edff6de7416a159b68bfe5ece2f31352f"
+  dependencies:
+    form-data-to-object "^0.2.0"
+
 "@mas.eg/mas-leaflet@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@mas.eg/mas-leaflet/-/mas-leaflet-2.1.4.tgz#93df448550014a7024f96d9eb6c127669503e5ee"

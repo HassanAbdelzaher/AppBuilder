@@ -1,5 +1,4 @@
 import * as Fields from '@mas.eg/mas-forms-semantic-ui'
-import * as MasForms from '@mas.eg/mas-forms/src';
 import * as React from 'react';
 import * as ReactDom from 'react-DOM';
 
@@ -7,8 +6,10 @@ import {Container, Segment} from 'semantic-ui-react';
 import { FieldPropTypes, FieldState } from '@mas.eg/mas-forms/src';
 import { Grid, Icon, Label, Menu, Table } from 'semantic-ui-react';
 
+import {AppMode} from '../actions/settings';
 import {Form} from '@mas.eg/mas-forms-semantic-ui';
 import { FormPropTypes } from '@mas.eg/mas-forms/src';
+import FormsyRadio from '@mas.eg/mas-forms-semantic-ui/src/FormsyRadio';
 
 export interface SettingsFormProps extends FormPropTypes {
     initModel?:{},
@@ -16,30 +17,39 @@ export interface SettingsFormProps extends FormPropTypes {
 }
 
 export interface SettingsLayersState {
-    show: boolean
+    show: boolean,
 }
 export default class SettingsLayers extends React.Component<SettingsFormProps,SettingsLayersState> {
     constructor(props) {
         super(props);
-        this.state = {  show: false};
+        this.state = {show: false };
         this.handelClick = this.handelClick.bind(this);
+        this.handelSubmit=this.handelSubmit.bind(this);       
     }
     handelClick() {
-        console.log("click");
         this.setState({
             show: !this.state.show
         });
     }
+    handelSubmit(model){
+        console.dir({model});
+        if(this.props.onSubmit)
+            this.props.onSubmit(model);
+        return model;
+    }
     render() {
         return <Segment textAlign="center" >
-        <Form initModel={this.props.initModel} ons size="samll" onValid={()=>{this.setState({show:true});console.log('valid')}} onInvalid={()=>{console.log('invalid'),this.setState({show:false})}}
-            onSubmit={this.props.onSubmit}>
+        <Form initModel={this.props.initModel} size="samll" onValid={()=>{this.setState({show:true});console.log('valid')}} onInvalid={()=>{console.log('invalid'),this.setState({show:false})}}
+            onSubmit={this.handelSubmit}>
          <h1 style={styles.h1}>Settings</h1>
+         <br/>
               <Grid stackable name="group1" >
-                    <Fields.Input  placeholder="Server" name="server"/>
-                    <Fields.Input  name="port" placeholder="Port" />
-                    <Fields.Input  name="nameSpace" placeholder="nameSpace or channel" />
-                    <Fields.Input  name="timeOut" placeholder="TimeOut" />
+              <Fields.Select labeled label="Mode" options={[{key:1,value:AppMode.MOBILE,text:"mobile"},{key:2,value:AppMode.TV,text:"tv"}]} name="mode">
+              </Fields.Select>
+                    <Fields.Input placeholder="Server" name="server"/>
+                    <Fields.Input name="port" placeholder="Port" />
+                    <Fields.Input name="namespace" placeholder="namespace or channel" />
+                    <Fields.Input name="timeOut" placeholder="TimeOut" />
                </Grid >
                 <Table stackable >                    
                     <Table.Body>

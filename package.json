@@ -66,7 +66,7 @@
   "dependencies": {
     "@mas.eg/mas-data-models": "^1.1.0",
     "@mas.eg/mas-floating-panel": "^1.2.3",
-    "@mas.eg/mas-forms": "^3.1.1",
+    "@mas.eg/mas-forms": "^3.1.2",
     "@mas.eg/mas-forms-semantic-ui": "^1.1.1",
     "@mas.eg/mas-leaflet": "^2.1.4",
     "@mas.eg/mas-loading": "^1.0.2",
