@@ -1,0 +1,73 @@
+<ActionHome style={styleIcon} onClick={this.handleToggle}/>
+        <Drawer
+          open={this.props.isOpen}
+          /*onRequestChange={(open) => this.setState({open})}*/>
+          <div style={styles.AppBar}>
+            <div style={styles.title}>SuezOm</div>
+            <div style={styles.name}>User name
+            </div>
+          </div>
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
+              <span style={styles.label}>
+                مكاني
+              </span>
+            </MenuItem>
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
+              <span style={styles.label}>
+                تسجيل نقطة صيانة
+              </span>
+            </MenuItem>
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
+              <span style={styles.label}>
+                تسجيل قراءة
+              </span>
+            </MenuItem >
+          </a>}
+          {<a style={styles.a}>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(DRAWING)}}><EditorModeEdit style={styles.icon}/>
+              <span style={styles.label}>
+                تحديث الشبكة
+              </span>
+            </MenuItem>
+          </a>}          
+          <Link style={styles.a} to='/messages'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
+              <span style={styles.label}>
+                الشكاوى المفتوحة
+              </span>
+            </MenuItem >
+          </Link>
+          <Link style={styles.a} to='/messages'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
+              <span style={styles.label}>
+                اوامر الشغل
+              </span>
+            </MenuItem >
+          </Link>
+          <Link style={styles.a} to='/settings'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(SETTINGS)}}><ActionSettings style={styles.icon}/>
+              <span style={styles.label}>
+                الأعدادت
+              </span>
+            </MenuItem>
+          </Link> 
+          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
+              <span style={styles.label}>
+               توصيلة غير قانونية
+              </span>
+            </MenuItem >
+          </Link>  
+          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
+            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
+              <span style={styles.label}>
+               اعتداء على الشبكة
+              </span>
+            </MenuItem >
+          </Link>          
+        </Drawer>

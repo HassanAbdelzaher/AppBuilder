@@ -64,21 +64,24 @@ module.exports = {
             loader: "sass-loader" // compiles Sass to CSS
           }
         ]
-      }, {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-      },
+      }, 
       // static assets
       {
         test: /\.html$/,
         use: 'html-loader'
-      }, {
-        test: /\.png$/,
-        use: 'url-loader?limit=100000'
-      }, {
-        test: /\.jpg$/,
-        use: 'file-loader'
-      }
+      }, {test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+            },
+          },
+        ],
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }        
     ]
   },
   plugins: [    
