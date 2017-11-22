@@ -17,7 +17,9 @@ export interface State{
   items:Array<Item>,
   timeOut:number,
   prevsMessages:Array<Array<Item>>,
-  title:string
+  title:string,
+  
+
 }
 
 export const openPanel = ():{type:string} => {

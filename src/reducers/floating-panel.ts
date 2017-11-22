@@ -6,7 +6,8 @@ const panelManger = (state : actions.State = {
     items: [],
     prevsMessages:[],
     timeOut:defaultTimeout,
-    title:""
+    title:"",
+   
     /*actions:[]*/
 }, action ):actions.State => {
     switch (action.type) {

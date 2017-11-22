@@ -52,7 +52,9 @@ export class Sidebar2 extends React.Component < SideProps, {
   componentWillReceiveProps(nextProps){
     this.setState({isOpen: nextProps.isOpen});    
   }
+  handleSettings(){
 
+  }
   render() {
   console.log(this.state.isOpen);
     var styleIcon = Object.assign({}, {marginTop: 10}); // custom color for Action Home icon
@@ -62,23 +64,52 @@ export class Sidebar2 extends React.Component < SideProps, {
       padding: '5px'
     });
     return (<div>
-          <Sidebar as={Menu} animation='overlay' visible={this.state.isOpen} icon='labeled' vertical inverted>
+          <Sidebar as={Menu} animation='overlay' style={styles.sidebar} visible={this.state.isOpen} icon='labeled' vertical inverted>
           <Menu.Item name='home'>
               <Icon color="blue" onClick={this.handleClose.bind(this)} name='arrow left' />
-          </Menu.Item>.
+          </Menu.Item>
             <Menu.Item name='home'>
               <Icon name='home' />
               Home
             </Menu.Item>
-            <Menu.Item name='gamepad'>
-              <Icon name='gamepad' />
-              Games
+            <Link  to='/settings'>
+            <Menu.Item name='settings'>
+              <Icon name='settings'  onClick={this.handleSettings.bind(this)}/>
+              Settings
             </Menu.Item>
-            <Menu.Item name='camera'>
-              <Icon name='camera' />
-              Channels
+            </Link>
+            <Menu.Item name='point'>
+            <Icon name='point' />
+              مكاني
             </Menu.Item>
-           
+            <Menu.Item name='registered'>
+               <Icon name='registered' />
+              تسجيل نقطة صيانة
+            </Menu.Item>
+            <Menu.Item name='registered Reading'>
+             <Icon name='registered' />
+             تسجيل قراءة
+            </Menu.Item>
+            <Menu.Item name='refresh'>
+            <Icon name='refresh' />
+              تحديث الشبكة
+            </Menu.Item>
+            <Menu.Item name='commenting outline'>
+            <Icon name='commenting outline' />
+              الشكاوى المفتوحة
+            </Menu.Item>
+            <Menu.Item name='info'>
+            <Icon name='info' />
+              اوامر الشغل
+              </Menu.Item>
+            <Menu.Item name='circle outline'>
+            <Icon name='circle outline' />
+              توصيلة غير قانونية
+              </Menu.Item>
+              <Menu.Item name='help circle'>
+              <Icon name='help circle' />
+              اعتداء على الشبكة
+              </Menu.Item>
           </Sidebar>  
           </div>        
     )
@@ -86,11 +117,9 @@ export class Sidebar2 extends React.Component < SideProps, {
 }
 var styles : React.CSSProperties = {
 
-  AppBar: {
-    width: '100%',
-    height: '90px',
-    padding: '10px',
-    backgroundColor: '#0264f2'
+  sidebar: {
+    
+    backgroundColor: '#146180'
   },
   title: {
     marginTop: "24px",

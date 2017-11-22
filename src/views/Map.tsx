@@ -196,18 +196,17 @@ export default class MapView extends React.Component < MapViewProps, {
           <GoogleLayer maptype="HYBRID"/>
         </BaseLayer> 
       </LayersControl>
-
       <NewPolygonControl    position={"topleft"}  title="create new Polygon"    html="▰" />
       <NewMarkerControl     position={"topleft"}  title="create new marker"     html="🖈" />
       <NewRectangleControl  position={"topleft"}  title="create new reactangle" html="⬛" />
       <NewLineControl       position={"topleft"}  title="create new line"       html="/\/" />
       <NewCircleControl     onStartDrawing={this.Drawing.bind(this)} onEndDrawing={this.endDrawing.bind(this)} position={"topleft"}  title="create new circle"  html="⬤" />    
 
-      <GeoJsonLayer    {...this.props.layersSettings[3].setting}    path="./res/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer    {...this.props.layersSettings[3].setting}    path="./res/fayoum/cityregions.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
       <GeoJsonLayer    {...this.props.layersSettings[0].setting}    path="./res/pipes.geojson" onFeatureClick={this.handlePipeClick.bind(this)} />
       <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/valves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
-      <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/airvalves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
-      <GeoJsonLayer     path="./res/markazboundary.geojson" /> 
+      <GeoJsonLayer    {...this.props.layersSettings[2].setting}    path="./res/fayoum/airvalves.geojson" onFeatureClick={this.handlePipeClick.bind(this)} /> 
+      <GeoJsonLayer     path="./res/fayoum/markazboundary.geojson" /> 
     </Map>
 //{...this.props.layersSettings["pipe"]}
   }

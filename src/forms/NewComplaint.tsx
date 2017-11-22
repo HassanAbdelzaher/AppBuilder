@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-DOM';
 import * as models from '@mas.eg/mas-data-models/server'
 
-import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react'
+import { Button, Icon, Label, Menu, Table,Grid } from 'semantic-ui-react'
 import {Container, Segment} from 'semantic-ui-react';
 import { FieldPropTypes, FieldState } from '@mas.eg/mas-forms/src';
 import {captureAudio, captureImage, captureVideo} from './camera'
@@ -59,16 +59,16 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
         this.handleSubmit=this.handleSubmit.bind(this);
     }
     handelClick() {
-        console.log("click");
         this.setState({
             show: !this.state.show
         });
     }
     captureImage() {
         var data=captureImage((result:string)=>{
-            let imageList=[...this.state.imageList,( 'data:image/png;base64,'+result)];
-            this.setState({imageList});
+            let imageList=[...this.state.imageList,(result)];
+            this.setState({imageList});    
         })
+        
     }  
     captureVideo() {
         var data=captureVideo((result)=>{
@@ -81,7 +81,7 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
         })
      };
      handleSubmit(model,rset){         
-       model.imageList=this.state.imageList;
+       model.imageList=this.state.imageList; 
         if(this.props.onSubmit){
             this.props.onSubmit(model,rset,null);
         }
@@ -96,18 +96,29 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
                <Fields.Input placeholder="Id" name="id"  width={8}/>
                <Fields.Input  name="DESCRIPTION" placeholder="الوصف" />
                <Fields.Input  name="ADDRESS" placeholder="العنوان" />
-                <Fields.Select placeholder="الاجراء" options={types} name="ACTION"/>
-                <Button onClick={this.captureImage.bind(this)} primary  content="captureImage" />
-                <Button onClick={this.captureVideo.bind(this)} primary  content="captureVideo"/>
-                <Button onClick={this.captureAudio.bind(this)} primary content="captureaudio"/>
-
+               <Fields.Select placeholder="الاجراء" options={types} name="ACTION"/>                
+                <Grid columns='equal'>
+                <Grid.Column width={3}>
+                    <Button onClick={this.captureImage.bind(this)} primary  content="captureImage" />         
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  <Button onClick={this.captureVideo.bind(this)} primary  content="captureVideo"/>              
+                </Grid.Column>
+                <Grid.Column width={3}>
+                   <Button onClick={this.captureAudio.bind(this)} primary content="captureaudio"/>   
+                </Grid.Column>
+                <Grid.Column width={3}>
                 <Button content="submit" primary name="button" type="submit" disabled={!this.state.show}/>
-                
+                </Grid.Column>
+            </Grid>
+       
+
         </Form>
         </Segment>
         <Segment>
         {
             this.state.imageList.map((imagePath)=>{
+                alert(imagePath)
                 return <img src={imagePath}/>
             })
         }

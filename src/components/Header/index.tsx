@@ -6,12 +6,11 @@ import { Icon, Menu } from 'semantic-ui-react';
 import SideBar from '../../containers/Sidebar';
 
 export interface HeaderProps {
-  heigth?: number;
+  heigth?: number,
   title?: string,
   version?: string,
   style?: {},
   onSideBarToggle?:()=>{
-
   }
 }
 export interface HeaderState {
@@ -29,34 +28,42 @@ export class Header extends React.Component<HeaderProps,
 
 
   handleClick() {
-    console.log("lkkk");
     this.setState({ open: !this.state.open })
   }
   handleToggleRequest() {
     console.log(this.props.onSideBarToggle)
     this.props.onSideBarToggle()
   }
- 
   render() {
     return (<div>
-      <Menu inverted style={this.props.style} attached>
-        <Menu.Item position="right">
+      <Menu inverted style={styles.menu} attached >
+        <Menu.Item position="left">
           {this.props.version}
         </Menu.Item>
-        <Menu.Item position="left">
-        <Icon color='blue' name="tasks" onClick={this.handleToggleRequest.bind(this)} />
+        <Menu.Item position="right">
+        <Icon  name="tasks" style={styles.icon} onClick={this.handleToggleRequest.bind(this)} />
         </Menu.Item>
       </Menu>
     </div>
     );
   }
 }
-
 export default Header;
 var styles: React.CSSProperties = {
   link: {
     color: 'white',
     textDecoration: 'none',
     fontSize: 20
+  },
+  menu:{
+    background:"#38819e"
+  },
+  icon:{
+   fontSize:25
+  },
+  item:{
+    position: 'absolute',
+    fontSize: 17,
+    fontWeight: 'bold',
   }
 }
