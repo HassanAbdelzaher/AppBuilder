@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as sAction from '../../actions/sidebar'
 
 import { Icon, Menu } from 'semantic-ui-react';
-import * as sAction from '../../actions/sidebar'
+
 import SideBar from '../../containers/Sidebar';
 
 export interface HeaderProps {
@@ -24,8 +25,8 @@ export class Header extends React.Component<HeaderProps,
     this.state = {
       open: false
     }
-
   }
+
 
   handleClick() {
     console.log("lkkk");

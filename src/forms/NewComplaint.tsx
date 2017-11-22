@@ -3,10 +3,12 @@ import * as MasForms from '@mas.eg/mas-forms/src';
 import * as React from 'react';
 import * as ReactDom from 'react-DOM';
 import * as models from '@mas.eg/mas-data-models/server'
+
+import { Button, Icon, Label, Menu, Table } from 'semantic-ui-react'
 import {Container, Segment} from 'semantic-ui-react';
 import { FieldPropTypes, FieldState } from '@mas.eg/mas-forms/src';
-import { Icon, Label, Menu, Table } from 'semantic-ui-react'
-import {captureAudio,captureImage,captureVideo} from './camera'
+import {captureAudio, captureImage, captureVideo} from './camera'
+
 import {Form} from '@mas.eg/mas-forms-semantic-ui';
 import { FormPropTypes } from '@mas.eg/mas-forms/src';
 
@@ -19,7 +21,7 @@ export interface NewComplaintFormProps extends FormPropTypes {
 
 export interface ComplaintFormState {
     show: boolean,
-    imagePath:string|object,
+    imagePath:string,
     videoPath:string|object,
     audioPath:string|object
 }
@@ -41,16 +43,20 @@ var  types = [
   },
 ]
 
-export default class ComplaintForm extends React.Component<any,ComplaintFormState> {
+export default class ComplaintForm extends React.Component<NewComplaintFormProps,ComplaintFormState> {
     constructor(props) {
         super(props);
         this.state = {  
             show: false,
-            imagePath:{}||"",
+            imagePath:"",
             videoPath:{}||"",
             audioPath:{}||""
         };
         this.handelClick = this.handelClick.bind(this);
+        this.captureImage=this.captureImage.bind(this);
+        this.captureImage=this.captureImage.bind(this);
+        this.captureVideo=this.captureVideo.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
     handelClick() {
         console.log("click");
@@ -59,50 +65,43 @@ export default class ComplaintForm extends React.Component<any,ComplaintFormStat
         });
     }
     captureImage() {
-        var data=captureImage(function  onsucess(result){
-            this.setState({imagePath : result}) 
+        var data=captureImage((result:string)=>{
+            this.setState({imagePath : 'data:image/png;base64,'+result}) 
         })
     }  
     captureVideo() {
-        var data=captureVideo(function  onsucess(result){
+        var data=captureVideo((result)=>{
             this.setState({videoPath : result})
         })
        }
     captureAudio() {
-        var data=captureAudio(function  onsucess(result){
+        var data=captureAudio((result)=>{
             this.setState({audioPath : result})
         })
      };
+     handleSubmit(model,rset){         
+       model.image=this.state.imagePath;
+        if(this.props.onSubmit){
+            this.props.onSubmit(model,rset,null);
+        }
+         return model;
+     }
     render() {
         return <div>
             <Segment textAlign="center" >
         <Form  size="small" onValid={()=>{this.setState({show:true});console.log('valid')}} onInvalid={()=>{console.log('invalid'),this.setState({show:false})}}
-            onSubmit={(data) => {
-            console.dir({data});
-            return data;
-        }}>
+            onSubmit={this.handleSubmit}>
          <h1>Complaint</h1>
                <Fields.Input placeholder="Id" name="id"  width={8}/>
-              <Fields.Group widths='equal' name="group1" >
-                    <Fields.Input  name="desc" placeholder="الوصف" />
-                     <Fields.Input  name="adress" placeholder="العنوان" />
-               </Fields.Group >
-                <Fields.Group widths='equal' name="group2">
-                        <Fields.Select placeholder="النوع" options={types} name="type"/>
-                        <Fields.Select placeholder="الاجراء" options={types} name="action"/>
-             </Fields.Group >
-                <Fields.Group name="group3">
-                <Fields.Button onClick={this.captureImage.bind(this)} primary name="captureImage" content="captureImage" />
-                <Fields.Button onClick={this.captureVideo.bind(this)} primary name="captureImage" content="captureVideo"/>
-                <Fields.Button onClick={this.captureAudio.bind(this)} primary name="captureImage" content="captureaudio"/>
-             </Fields.Group>
+               <Fields.Input  name="DESCRIPTION" placeholder="الوصف" />
+               <Fields.Input  name="ADDRESS" placeholder="العنوان" />
+                <Fields.Select placeholder="الاجراء" options={types} name="ACTION"/>
+                <Button onClick={this.captureImage.bind(this)} primary  content="captureImage" />
+                <Button onClick={this.captureVideo.bind(this)} primary  content="captureVideo"/>
+                <Button onClick={this.captureAudio.bind(this)} primary content="captureaudio"/>
 
-
-                <Fields.Input style={{display:'none'}} value={this.state.imagePath} name="imagePath" />
-                <Fields.Input style={{display:'none'}} value={this.state.audioPath} name="audioPath" />
-                <Fields.Input style={{display:'none'}} value={this.state.videoPath} name="videoPath" />
-                <Fields.Button content="submit" primary name="button" type="submit" disabled={!this.state.show}/>
-
+                <Button content="submit" primary name="button" type="submit" disabled={!this.state.show}/>
+                <img src={this.state.imagePath} />
         </Form>
         </Segment>
     </div>

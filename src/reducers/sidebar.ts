@@ -1,6 +1,6 @@
 import * as actions from '../actions/sidebar'
 
-const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:true,items:[] }, action) => {
+const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:false,items:[] }, action) => {
     switch (action.type) {
         case actions.OPEN_SIDBARE:
             return {

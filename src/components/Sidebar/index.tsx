@@ -36,20 +36,22 @@ export class Sidebar2 extends React.Component < SideProps, {
       isOpen: props.isOpen,
         };
     this.handleClick=this.handleClick.bind(this);
-    this.handleToggle=this.handleToggle.bind(this);
+    this.handleClose=this.handleClose.bind(this);
   }
-  handleToggle(){
+  handleClose(){
     if(this.props.toggle)
-        this.props.toggle();
-
-        //this.setState({visible:!this.state.visible})
+        this.props.close();
+    this.setState({isOpen: false});
   };
    
   handleClick (action:string) {
-    //this.setState({open: false});
     if(this.props.onClick)
         this.props.onClick(action);
   }  
+  
+  componentWillReceiveProps(nextProps){
+    this.setState({isOpen: nextProps.isOpen});    
+  }
 
   render() {
   console.log(this.state.isOpen);
@@ -61,6 +63,9 @@ export class Sidebar2 extends React.Component < SideProps, {
     });
     return (<div>
           <Sidebar as={Menu} animation='overlay' visible={this.state.isOpen} icon='labeled' vertical inverted>
+          <Menu.Item name='home'>
+              <Icon color="blue" onClick={this.handleClose.bind(this)} name='arrow left' />
+          </Menu.Item>.
             <Menu.Item name='home'>
               <Icon name='home' />
               Home

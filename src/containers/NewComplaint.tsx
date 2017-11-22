@@ -20,8 +20,6 @@ const mapStateToProps = (state:AppState, ownProps):NewComplaintFormProps => {
 const mapDispatchToProps = (dispatch, ownProps:NewComplaintFormProps):NewComplaintFormProps => {
   return {
     onSubmit:(model:nActions.Model,reset,update)=>{
-      console.log(model);
-      
      dispatch(nActions.saveComplaint(model));
      return model;
    }
