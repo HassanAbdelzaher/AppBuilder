@@ -21,7 +21,7 @@ export interface NewComplaintFormProps extends FormPropTypes {
 
 export interface ComplaintFormState {
     show: boolean,
-    imagePath:string,
+    imageList:Array<string>,
     videoPath:string|object,
     audioPath:string|object
 }
@@ -48,7 +48,7 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
         super(props);
         this.state = {  
             show: false,
-            imagePath:"",
+            imageList:[],
             videoPath:{}||"",
             audioPath:{}||""
         };
@@ -66,7 +66,8 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
     }
     captureImage() {
         var data=captureImage((result:string)=>{
-            this.setState({imagePath : 'data:image/png;base64,'+result}) 
+            let imageList=[...this.state.imageList,( 'data:image/png;base64,'+result)];
+            this.setState({imageList});
         })
     }  
     captureVideo() {
@@ -80,7 +81,7 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
         })
      };
      handleSubmit(model,rset){         
-       model.image=this.state.imagePath;
+       model.imageList=this.state.imageList;
         if(this.props.onSubmit){
             this.props.onSubmit(model,rset,null);
         }
@@ -101,8 +102,15 @@ export default class ComplaintForm extends React.Component<NewComplaintFormProps
                 <Button onClick={this.captureAudio.bind(this)} primary content="captureaudio"/>
 
                 <Button content="submit" primary name="button" type="submit" disabled={!this.state.show}/>
-                <img src={this.state.imagePath} />
+                
         </Form>
+        </Segment>
+        <Segment>
+        {
+            this.state.imageList.map((imagePath)=>{
+                return <img src={imagePath}/>
+            })
+        }
         </Segment>
     </div>
     }

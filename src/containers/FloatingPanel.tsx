@@ -7,11 +7,23 @@ import {AppState} from '../reducers';
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state:AppState, ownProps:FloatingPanelProps):FloatingPanelProps => {
+  let imageList=[];
+  let items=state.floatingPanel.items.filter((itm:any)=>{
+    if(itm.name=='imageList'||itm.name=="ImageList"){
+      itm.value.map((imagePath)=>{
+        imageList.push(<img src={imagePath}/>) 
+      })
+      return false;
+    }
+    else
+    return true;
+  });
   return {
     isOpen:state.floatingPanel.status,
     items:state.floatingPanel.items,
     /*timeout:state.floatingPanel.timeout,*/
     title:state.floatingPanel.title,
+    imageList
     /*actions:state.floatingPanel.actions||[]*/
   }
 }
