@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import * as smu from 'semantic-ui-react';
+
 const styles = {
   radioButton: {
     marginTop: 16,
@@ -11,7 +10,7 @@ const styles = {
 /**
  * Dialog content can be scrollable.
  */
-export default class ModalDialog extends React.Component<{show:boolean,onClose:Function},{open:boolean}> {
+export default class ModalDialog extends React.Component<{title:string,onClose:Function,open:boolean}> {
   constructor(props){
     super(props);
     this.state = {
@@ -20,7 +19,7 @@ export default class ModalDialog extends React.Component<{show:boolean,onClose:F
   }
   
   handleOpen(){
-        this.setState({open: true});
+    this.setState({open: true});
   }
   handleClose = () => {
     this.setState({open: false});
@@ -32,32 +31,32 @@ export default class ModalDialog extends React.Component<{show:boolean,onClose:F
 
   render() {
     const actions = [
-      <FlatButton
+      <smu.Icon
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
-      <FlatButton
+      <smu.Icon
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
-      <div style={this.props.show? {display:'block'}:{display:'none'}}>  
-        <Dialog
-          title="Scrollable Dialog"
+        <smu.Modal
           actions={actions}
-          modal={false}
-          open={this.props.show}
-          onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
+          open={this.props.open}
+          onClose={this.handleClose}
         >
+        <smu.Modal.Header>
+          {this.props.title}
+          </smu.Modal.Header>
+        <smu.Modal.Content>
           {this.props.children}
-        </Dialog>
-      </div>
+        </smu.Modal.Content>
+        </smu.Modal>
     );
   }
 }

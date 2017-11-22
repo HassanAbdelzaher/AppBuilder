@@ -1,56 +1,62 @@
 import * as React from 'react';
+import * as sAction from '../../actions/sidebar'
 
-import {AppBar} from 'material-ui';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import {Link} from 'react-router-dom';
-import MenuItem from 'material-ui/MenuItem';
-import Menue from '../Menu/index'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import RaisedButton from 'material-ui/RaisedButton';
-import SideBar from '../../containers/Sidebar'
+import { Icon, Menu } from 'semantic-ui-react';
 
-const defaulStyle={
-  height:50
-}
+import SideBar from '../../containers/Sidebar';
+
 export interface HeaderProps {
-  heigth?:number;
-  title?:string,
-  version?:string
+  heigth?: number;
+  title?: string,
+  version?: string,
+  style?: {},
+  onSideBarToggle?:()=>{
+
+  }
 }
 export interface HeaderState {
   /* empty */
-  open:boolean,
+  open: boolean
 }
-export class Header extends React.Component<HeaderProps, HeaderState> {
+export class Header extends React.Component<HeaderProps,
+  HeaderState> {
   constructor(props?: HeaderProps, context?: any) {
     super(props, context);
-    this.state={open:false}
-    this.handleSave = this.handleSave.bind(this);
+    this.state = {
+      open: false
+    }
   }
 
-  handleSave(text: string) {
-    
+
+  handleClick() {
+    console.log("lkkk");
+    this.setState({ open: !this.state.open })
   }
-  handleChange(){
-    this.setState({open:true})
+  handleToggleRequest() {
+    console.log(this.props.onSideBarToggle)
+    this.props.onSideBarToggle()
   }
+ 
   render() {
-    return (
-      <AppBar style={{height:this.props.heigth,textAlign:'center'}}
-          title={this.props.title}
-          iconElementRight={<span>{this.props.version||'0.0.0'}</span>}
-          iconElementLeft={<SideBar/>}
-
-            />     );
+    return (<div>
+      <Menu inverted style={this.props.style} attached>
+        <Menu.Item position="right">
+          {this.props.version}
+        </Menu.Item>
+        <Menu.Item position="left">
+        <Icon color='blue' name="tasks" onClick={this.handleToggleRequest.bind(this)} />
+        </Menu.Item>
+      </Menu>
+    </div>
+    );
   }
 }
 
 export default Header;
-var styles : React.CSSProperties = {
- link:{     
-      color: 'white',
-      textDecoration: 'none',
-      fontSize: 20
+var styles: React.CSSProperties = {
+  link: {
+    color: 'white',
+    textDecoration: 'none',
+    fontSize: 20
   }
 }

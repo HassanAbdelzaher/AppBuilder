@@ -1,11 +1,30 @@
 import * as L from 'leaflet';
 import * as React from 'react';
 
-import {BaseLayer, CircleMarker, FeaturGroup, GeoJsonLayer,EditControl,Circle, GoogleLayer, LayersControl, Map, MapControl, Marker, MarkerClusterGroup, 
-  NewLineControl,NewMarkerControl,NewPolygonControl,NewRectangleControl,NewCircleControl, Overlay, PolyLine, Popup, TileLayer} from '@mas.eg/mas-leaflet';
-import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import ActionReorder from 'material-ui/svg-icons/action/reorder';
+import {
+  BaseLayer,
+  Circle,
+  CircleMarker,
+  EditControl,
+  FeaturGroup,
+  GeoJsonLayer,
+  GoogleLayer,
+  LayersControl,
+  Map,
+  MapControl,
+  Marker,
+  MarkerClusterGroup,
+  NewCircleControl,
+  NewLineControl,
+  NewMarkerControl,
+  NewPolygonControl,
+  NewRectangleControl,
+  Overlay,
+  PolyLine,
+  Popup,
+  TileLayer
+} from '@mas.eg/mas-leaflet';
+
 import {FloatingPanel} from '@mas.eg/mas-floating-panel';
 
 var classes=require('./map-icons.css');
