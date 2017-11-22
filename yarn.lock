@@ -9,9 +9,9 @@
     react "^15.5.4"
     react-dom "^15.5.4"
 
-"@mas.eg/mas-floating-panel@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@mas.eg/mas-floating-panel/-/mas-floating-panel-1.2.3.tgz#5e9ae6ed9a3f3611e62bf2636deb455c16b67cdc"
+"@mas.eg/mas-floating-panel@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@mas.eg/mas-floating-panel/-/mas-floating-panel-1.2.5.tgz#7347ffd441e45e4828f96e69fdb461a00d8e6359"
 
 "@mas.eg/mas-forms-semantic-ui@^1.1.1":
   version "1.1.1"

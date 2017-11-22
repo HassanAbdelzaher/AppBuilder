@@ -43,11 +43,10 @@ export function initSocket(client:WebSocketHandler,dispatch:(action)=>void){
             else if (typeof message == "object") {
                 let items = Object
                     .keys(message)
-                    .map((k) => {
+                    .map((k) => {                        
                         return {name: k, value: message[k]}
                     });
                 dispatch(pActions.setItems(items));
-
             } else {
                 dispatch(pActions.setItems([
                     {
