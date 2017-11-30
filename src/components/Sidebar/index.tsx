@@ -1,28 +1,10 @@
 import * as React from 'react';
+import * as smu from 'semantic-ui-react';
 
+import {Header, Icon, Image, Menu, MenuItem, Segment, Sidebar} from 'semantic-ui-react';
 import { History, Location, LocationListener, UnregisterCallback } from 'history';
-import {blue500, greenA200, red500} from 'material-ui/styles/colors';
 
-import ActionAndroid from 'material-ui/svg-icons/action/android';
-import ActionExplore from 'material-ui/svg-icons/action/explore';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
-import ActionViewDay from 'material-ui/svg-icons/action/view-day';
-import AppBar from 'material-ui/AppBar';
-import CommunicationLocationOn from 'material-ui/svg-icons/communication/location-on';
-import CommunicationMessage from 'material-ui/svg-icons/communication/message';
-import Drawer from 'material-ui/Drawer';
-import EditorModeEdit from 'material-ui/svg-icons/editor/Mode-edit';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
 import {Link} from 'react-router-dom';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import RaisedButton from 'material-ui/RaisedButton';
-import SvgIcon from 'material-ui/SvgIcon';
-import  {basic} from '@mas.eg/mas-themes/src';
 
 export interface SideProps {
   onLocationClick?: () => void,
@@ -44,115 +26,61 @@ export const ILLEGAL_CONNECTIONS="ILLEGAL_CONNECTIONS";
 export const COMPLAINTS="COMPLAINTS";
 export const SETTINGS="SETTINGS";
 
-export class Sidebar extends React.Component < SideProps, {
+export class Sidebar2 extends React.Component < SideProps, {
   isOpen : boolean
 } > {
 
   constructor(props : SideProps) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: props.isOpen,
         };
     this.handleClick=this.handleClick.bind(this);
-    this.handleToggle=this.handleToggle.bind(this);
+    this.handleClose=this.handleClose.bind(this);
   }
-
-  handleToggle(){
+  handleClose(){
     if(this.props.toggle)
-        this.props.toggle();
+        this.props.close();
+    this.setState({isOpen: false});
   };
    
   handleClick (action:string) {
-    //this.setState({open: false});
     if(this.props.onClick)
         this.props.onClick(action);
+  }  
+  
+  componentWillReceiveProps(nextProps){
+    this.setState({isOpen: nextProps.isOpen});    
   }
 
   render() {
+  console.log(this.state.isOpen);
     var styleIcon = Object.assign({}, {marginTop: 10}); // custom color for Action Home icon
     //custom color for MenuItem
     var styleMenuItem = Object.assign({}, {
       borderBottom: '1px solid #c9d2e0',
       padding: '5px'
     });
-    return (
-      <div style={{overflowX:'hidden',overflowY:'auto'}}>
-        <ActionHome style={styleIcon} onClick={this.handleToggle}/>
-        <Drawer
-          style={basic.drawer}
-          open={this.props.isOpen}
-          /*onRequestChange={(open) => this.setState({open})}*/>
-          <div style={styles.AppBar}>
-            <div style={styles.title}>SuezOm</div>
-            <div style={styles.name}>User name
-            </div>
-          </div>
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
-              <span style={styles.label}>
-                مكاني
-              </span>
-            </MenuItem>
-          </a>}
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(HHU_LOCATIONS);this.props.onLocationClick}}><CommunicationLocationOn style={styles.icon}/>
-              <span style={styles.label}>
-                تسجيل نقطة صيانة
-              </span>
-            </MenuItem>
-          </a>}
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(CUSTOMER_LOCATIONS)}}><ActionExplore style={styles.icon}/>
-              <span style={styles.label}>
-                تسجيل قراءة
-              </span>
-            </MenuItem >
-          </a>}
-          {<a style={styles.a}>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(DRAWING)}}><EditorModeEdit style={styles.icon}/>
-              <span style={styles.label}>
-                تحديث الشبكة
-              </span>
-            </MenuItem>
-          </a>}          
-          <Link style={styles.a} to='/messages'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
-              <span style={styles.label}>
-                الشكاوى المفتوحة
-              </span>
-            </MenuItem >
-          </Link>
-          <Link style={styles.a} to='/messages'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(COMPLAINTS)}}><CommunicationMessage style={styles.icon}/>
-              <span style={styles.label}>
-                اوامر الشغل
-              </span>
-            </MenuItem >
-          </Link>
-          <Link style={styles.a} to='/settings'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(SETTINGS)}}><ActionSettings style={styles.icon}/>
-              <span style={styles.label}>
-                الأعدادت
-              </span>
-            </MenuItem>
-          </Link> 
-          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
-              <span style={styles.label}>
-               توصيلة غير قانونية
-              </span>
-            </MenuItem >
-          </Link>  
-          <Link onClick={this.props.onSHowDrawingControlsClick} to='search'>
-            <MenuItem style={styleMenuItem} onTouchTap={()=>{this.handleClick(ILLEGAL_CONNECTIONS)}}><ActionSearch style={styles.icon}/>
-              <span style={styles.label}>
-               اعتداء على الشبكة
-              </span>
-            </MenuItem >
-          </Link>          
-        </Drawer>
-      </div>
-
+    return (<div>
+          <Sidebar as={Menu} animation='overlay' visible={this.state.isOpen} icon='labeled' vertical inverted>
+          <Menu.Item name='home'>
+              <Icon color="blue" onClick={this.handleClose.bind(this)} name='arrow left' />
+          </Menu.Item>.
+            <Menu.Item name='home'>
+              <Icon name='home' />
+              Home
+            </Menu.Item>
+            <Menu.Item name='gamepad'>
+              <Icon name='gamepad' />
+              Games
+            </Menu.Item>
+            <Menu.Item name='camera'>
+              <Icon name='camera' />
+              Channels
+            </Menu.Item>
+           
+          </Sidebar>  
+          </div>        
     )
   }
 }

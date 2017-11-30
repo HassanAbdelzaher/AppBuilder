@@ -4,14 +4,27 @@ export const SETTINGS_LOADED = "SETTINGS_LOADED";
 export const SETTINGS_SAVED = "SETTINGS_SAVED";
 export const LOAD_SETTINGS_FAILD = "LOAD_SETTINGS_FAILD";
 export const LOAD_SETTINGS_SUCCSSED = "LOAD_SETTINGS_SUCCSSED";
+export const SWITCH_MODE = "SWITCH_MODE";
+
+export enum AppMode{
+    TV="TV",
+    MOBILE="MOBILE"
+}
 
 import {WebSocketHandler} from '@mas.eg/mas-sockets/src';
 
 export interface State {
+    mode?:AppMode
     server : string,
     port : number,
     namespace: string,
     layerSettings:Array<{layer:string,settings:{maxZoom:number,minZoom:number,features:number,thread:number}}>
+}
+export const switchTo=(mode:AppMode)=>{
+    return {
+        type: SWITCH_MODE,
+        mode
+    }
 }
 export const loadLocalSettings = () => {
     return {

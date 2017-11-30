@@ -1,14 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-import {Tab} from 'material-ui'
-
-var style =require('./style.css');
-
-
-
-
-
+var style =require('!style-loader!css-loader!./style.css');
 export interface FooterProps {
   height:number;
 };

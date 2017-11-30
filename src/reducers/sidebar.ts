@@ -13,6 +13,7 @@ const sidebarReducer = (state: actions.State = { title: "MasOm",isOpen:false,ite
                 isOpen: false
             };
             case actions.TOGGLE_SIDBARE:
+            console.log('TOGGLE_SIDBARE:'+state.isOpen)
             return {
                 ...state,
                 isOpen: !state.isOpen

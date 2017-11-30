@@ -1,175 +1,96 @@
+import * as Fields from '@mas.eg/mas-forms-semantic-ui'
 import * as React from 'react';
+import * as ReactDom from 'react-DOM';
 
-import {Form, FormPropTypes} from '@mas.eg/mas-forms/src';
-import {TextField, Toggle} from '@mas.eg/mas-forms-fields-material-ui'
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import {Container, Segment} from 'semantic-ui-react';
+import { FieldPropTypes, FieldState } from '@mas.eg/mas-forms/src';
+import { Grid, Icon, Label, Menu, Table } from 'semantic-ui-react';
 
-export interface SettingsFormProps extends FormPropTypes {}
-export class SettingsForm extends React.Component < SettingsFormProps,
-any > {
-    constructor() {
-        super();
-        this.state = {canSubmit: true ,
-        arr:[
-             {id:"الخطوط",value:{maxZoomL:"",minZoomL:"",featuresL:"",threadL:""}},
-             {id:"المحابس",value:{maxZoomP:"",minZoomP:"",featuresP:"",threadP:""}},
-             {id:"الحدود",value:{maxZoomPO:"",minZoomPO:"",featuresPO:"",threadPO:""}},
-             {id:"المحطات",value:{maxZoomS:"",minZoomS:"",featuresS:"",threadS:""}}
-            ]
-            
-         }
-        this.validateForm = this .validateForm.bind(this);
-        this.onChange = this .onChange .bind(this);
+import {AppMode} from '../actions/settings';
+import {Form} from '@mas.eg/mas-forms-semantic-ui';
+import { FormPropTypes } from '@mas.eg/mas-forms/src';
+import FormsyRadio from '@mas.eg/mas-forms-semantic-ui/src/FormsyRadio';
+
+export interface SettingsFormProps extends FormPropTypes {
+    initModel?:{},
+    onSubmit?:(model:any,reset?,update?)=>{}
+}
+
+export interface SettingsLayersState {
+    show: boolean,
+}
+export default class SettingsLayers extends React.Component<SettingsFormProps,SettingsLayersState> {
+    constructor(props) {
+        super(props);
+        this.state = {show: false };
+        this.handelClick = this.handelClick.bind(this);
+        this.handelSubmit=this.handelSubmit.bind(this);       
     }
-    validateForm(values) {
-        if (!values.server) {
-            this.setState({
-                validationErrors: {
-                    server: 'Has no value'
-                }
-            });
-        } else {
-            this.setState({validationErrors: {}});
-        }
+    handelClick() {
+        this.setState({
+            show: !this.state.show
+        });
     }
-    onChange(modelmade, isChanged) {
-        console.log(modelmade);
-        this.validateForm(modelmade);
-        if (this.props.onChange) 
-            this.props.onChange(modelmade, isChanged);
-        return modelmade
+    handelSubmit(model){
+        console.dir({model});
+        if(this.props.onSubmit)
+            this.props.onSubmit(model);
+        return model;
     }
-   
     render() {
-
-        const validationErrors = this.state.validationErrors;
-        const props = { onChange: this.onChange,
-            validationErrors: this.state.validationErrors,
-        }
-        const formProps = {
-            ...this.props,
-            ...props
-        };
-        return (<div>
-        <Form {...formProps} style={styles.form}>
-            <h1 style={styles.h1}>Settings</h1>
-            <div style={{}}>
-            <TextField style={styles.textField1} required validations={{ isUrl: true}} name="server" floatingLabelText="server" hintText="الخادم"/>
-            <TextField style={styles.textField1}  required validations={{ isInt: true}} name="port" floatingLabelText="port" hintText="رقم المنفذ"/>
-            </div>
-             <div> 
-             <TextField style={styles.textField1}  required name="namespace" floatingLabelText="namespace" hintText="المجموعة"/>
-             <TextField style={styles.textField1}  required name="timeOut" floatingLabelText="TimeOut" hintText="TimeOut FloatingPanel"/></div> 
-
-            <div style={{margin:'10px 0 10px 0'}}>
-            <Table name="table"  style={styles.table} bodyStyle={{ width:"800px",}}>
-                <TableHeader displaySelectAll={false} >
-                <TableRow >
-                    <TableHeaderColumn style={styles.tableHeader}>Name</TableHeaderColumn>
-                    <TableHeaderColumn style={styles.tableHeader}>MaxZoom</TableHeaderColumn>
-                    <TableHeaderColumn style={styles.tableHeader}>MinZoom</TableHeaderColumn>
-                    <TableHeaderColumn style={styles.tableHeader}>No_Of_Features</TableHeaderColumn>
-                    <TableHeaderColumn style={styles.tableHeader}>No_Of_Thread</TableHeaderColumn>
-
-                </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false} style={{backgroundColor: 'antiquewhite'}}>
-                <TableRow>
-
-                    <TableRowColumn style={styles.tableRow}> الخطوط</TableRowColumn>
-                    <TableRowColumn  style={styles.tableRow}> <TextField style={styles.textField} name="maxZoomP" /></TableRowColumn>
-                    <TableRowColumn  style={styles.tableRow}><TextField style={styles.textField} name="minZoomP" /></TableRowColumn>
-                    <TableRowColumn  style={styles.tableRow}><TextField style={styles.textField} name="featuresP" /></TableRowColumn>
-                    <TableRowColumn  style={styles.tableRow}><TextField style={styles.textField} name="threadP" /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-
-                    <TableRowColumn  style={styles.tableRow}> المحابس</TableRowColumn>
-                    <TableRowColumn  style={styles.tableRow}><TextField style={styles.textField} name="maxZoomV" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="minZoomV" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="featuresV" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="threadV" /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-
-                    <TableRowColumn style={styles.tableRow}>المحطات</TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="maxZoomS" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="minZoomS" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="featuresS" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="threadS" /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-
-                    <TableRowColumn style={styles.tableRow}>الحدود</TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="maxZoomBo" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="minZoomBo" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="featuresBo" /></TableRowColumn>
-                    <TableRowColumn style={styles.tableRow}><TextField style={styles.textField} name="threadBo" /></TableRowColumn>
-                </TableRow>
-                
-                </TableBody>
-            </Table></div>
-            {/*<Toggle name="navigate"/>*/}
-           
-            <button style={styles.btn} type="submit" disabled={!this.state.canSubmit} >Submit</button>
-       
+        return <Segment textAlign="center" >
+        <Form initModel={this.props.initModel} size="samll" onValid={()=>{this.setState({show:true});console.log('valid')}} onInvalid={()=>{console.log('invalid'),this.setState({show:false})}}
+            onSubmit={this.handelSubmit}>
+         <h1 style={styles.h1}>Settings</h1>
+         <br/>
+              <Grid stackable name="group1" >
+              <Fields.Select labeled label="Mode" options={[{key:1,value:AppMode.MOBILE,text:"mobile"},{key:2,value:AppMode.TV,text:"tv"}]} name="mode">
+              </Fields.Select>
+                    <Fields.Input placeholder="Server" name="server"/>
+                    <Fields.Input name="port" placeholder="Port" />
+                    <Fields.Input name="namespace" placeholder="namespace or channel" />
+                    <Fields.Input name="timeOut" placeholder="TimeOut" />
+               </Grid >
+                <Table stackable >                    
+                    <Table.Body>
+                    <Table.Row>
+                       <Table.Cell> الخطوط</Table.Cell>
+                        <Table.Cell> <Fields.Input placeholder="maxZoom"  name="maxZoomP" /></Table.Cell>
+                       <Table.Cell><Fields.Input placeholder="minZoom"  name="minZoomP" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="features"  name="featuresP" /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                    <Table.Cell> المحابس</Table.Cell>
+                       <Table.Cell> <Fields.Input placeholder="maxZoom" name="maxZoomV" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="minZoom" name="minZoomV" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="features" name="featuresV" /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                    <Table.Cell> المحطات</Table.Cell>
+                       <Table.Cell> <Fields.Input placeholder="maxZoom" name="maxZoomS" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="minZoom" name="minZoomS" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="features" name="featuresS" /></Table.Cell>
+                    </Table.Row>
+                     <Table.Row>
+                     <Table.Cell> الحدود</Table.Cell>
+                       <Table.Cell> <Fields.Input placeholder="maxZoom" name="maxZoomB" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="minZoom" name="minZoomB" /></Table.Cell>
+                        <Table.Cell><Fields.Input placeholder="features" name="featuresB" /></Table.Cell>
+                    </Table.Row>
+                    </Table.Body>
+                </Table>
+                <Fields.Button content="submit" primary name="button" type="submit" disabled={!this.state.show}/>
         </Form>
-        
-  </div>
-        );
+    </Segment>
     }
 }
-var styles : React.CSSProperties = {
-    textField1:{ 
-        padding:5,
-        marginRight:20
-    },
-    textField:{
-        width:150,
-  
-    },
-    form:{
-        border: "1px solid",
-        maxWidth: 800,
-        margin: 'auto',
-        padding: 25,
-        marginTop: 20,
-        backgroundColor: 'aliceblue',
-        borderRadius:10,
-     
-    },
-    table:{
-        width:"800px",
-     },
-    tableRow:{
-        textAlign:'-webkit-left',
-      
-    },
-    tableHeader:{
-        color:'#6b6bef',
-        fontSize:15
-    },
-    h1:{
+var styles: React.CSSProperties = {    
+      h1:{
         textAlign:'center',
-         backgroundColor: '#7facd0',
+        backgroundColor: '#7facd0',
         height: 47,
         padding: 5,
     },
-    btn:{
-        fontSize: 20,
-        padding: 3,
-        width: 90,
-        borderRadius: 5,
-        background: '#76a2c5',
-        marginRight: 100,
-        marginTop: 10
-    }
 
 }
+

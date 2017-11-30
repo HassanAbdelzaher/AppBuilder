@@ -1,8 +1,8 @@
 import * as actions from '../actions/sidebar';
 import * as mapAtions from '../actions/map';
+import * as sidebar from '../components/Sidebar'
 
 import {AppState} from '../reducers';
-import * as sidebar from '../components/Sidebar'
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state:AppState, ownProps:sidebar.SideProps):sidebar.SideProps => {
@@ -34,4 +34,4 @@ const mapDispatchToProps = (dispatch, ownProps:sidebar.SideProps):sidebar.SidePr
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(sidebar.Sidebar);
+export default connect(mapStateToProps,mapDispatchToProps)(sidebar.Sidebar2);

@@ -2,7 +2,7 @@ import * as lActions from '../actions/loading'
 import * as mAction  from '../actions/map'
 import * as nActions from '../actions/new-complaint';
 
-import {NewComplaintForm, NewComplaintFormProps} from '../forms/NewComplaint'
+import {default as NewComplaintForm, NewComplaintFormProps} from '../forms/NewComplaint'
 
 import {AppState} from '../reducers';
 import { connect } from 'react-redux';

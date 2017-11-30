@@ -39,7 +39,7 @@ export const connect = () => {
 export const changeConnectionSettings = (config:{server:string,port:number,namespace:string}) => {
   return function(dispatch,getState,{client}){
     //notify store 
-    dispatch(disConnect());
+    //dispatch(disConnect());
     //creating new client
     let cl:WebSocketHandler=client;
     let url=(config.server)+":"+(config.port)+"/"+(config.namespace);
@@ -63,3 +63,4 @@ export const reConnecting = () => {
     type: RECONNECTING
   }
 }
+

@@ -1,8 +1,8 @@
 import * as cActions from '../actions/connection-monitor'
-import * as sActions from '../actions/settings'
 import * as mAction  from '../actions/map'
+import * as sActions from '../actions/settings'
 
-import {SettingsForm, SettingsFormProps} from '../forms/settings'
+import {default as SettingsForm, SettingsFormProps} from '../forms/settings'
 
 import {AppState} from '../reducers';
 import { connect } from 'react-redux';
